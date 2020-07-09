@@ -2,6 +2,7 @@ package ethapi
 
 import (
 	"bytes"
+	"fmt"
 	"math/big"
 
 	"github.com/axis-cash/go-axis/common/address"
@@ -112,6 +113,47 @@ func (b *PKrAddress) UnmarshalText(input []byte) error {
 		return err
 	}
 	copy(b[:], out)
+	return nil
+}
+
+type PKrAddressEx [97]byte
+
+func (b PKrAddressEx) ToPKr() *c_type.PKrEx {
+	result := &c_type.PKrEx{}
+	result[0] = axisparam.PKR_PREFIX
+	copy(result[1:], b[:])
+
+	return result
+}
+
+func (b PKrAddressEx) MarshalText() ([]byte, error) {
+	return []byte(b.String()), nil
+}
+
+func (b PKrAddressEx) String() string {
+	return fmt.Sprintf("%c%s",  axisparam.PKR_PREFIX, base58.Encode(b[1:]))
+
+}
+
+func (b PKrAddressEx) Base58() string {
+	return fmt.Sprintf("%c%s",  axisparam.PKR_PREFIX, base58.Encode(b[1:]))
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (b *PKrAddressEx) UnmarshalText(input []byte) error {
+	if len(input) == 0 {
+		return nil
+	}
+	out, err := address.DecodeAddr(input[1:])
+	if err != nil {
+		return err
+	}
+	err = address.ValidPkr(out)
+	if err != nil {
+		return err
+	}
+	b[0] = axisparam.PKR_PREFIX
+	copy(b[1:], out)
 	return nil
 }
 

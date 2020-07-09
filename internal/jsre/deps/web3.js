@@ -6072,9 +6072,15 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
         var methods = function () {
             var getPkr = new Method({
                 name: 'getPkr',
-                call: 'exchange_getPkr',
+                call: 'exchange_getPkrEx',
                 params: 2
             });
+            /*
+            var getPkrEx = new Method({
+                name: 'getPkrEx',
+                call: 'exchange_getPkrEx',
+                params: 2
+            });*/
 
             var getBalances = new Method({
                 name: 'getBalances',
@@ -6129,6 +6135,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 
             return [
                 getPkr,
+                //getPkrEx,
                 getPkSynced,
                 merge,
                 getBalances,
@@ -6593,10 +6600,16 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
             });
             var genPKr=new Method({
                 name: 'genPKr',
-                call: 'axis_genPKr',
+                call: 'axis_genPKrEx',
                 params: 1,
                 inputFormatter: [formatters.inputAddressFormatter]
-            });
+            });/*
+            var genPKrEx=new Method({
+                name: 'genPKrEx',
+                call: 'axis_genPKrEx',
+                params: 1,
+                inputFormatter: [formatters.inputAddressFormatter]
+            });*/
             var genIndexPKr=new Method({
                 name: 'genIndexPKr',
                 call: 'axis_genIndexPKr',
@@ -6732,6 +6745,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
                 transferPkg,
                 convertAddressParams,
                 genPKr,
+                //genPKrEx,
                 genIndexPKr,
                 genIndexPKrByTk,
                 getFullAddress,

@@ -757,6 +757,14 @@ func (s *PublicBlockChainAPI) GenPKr(ctx context.Context, Pk address.PKAddress) 
 	return result, nil
 }
 
+func (s *PublicBlockChainAPI) GenPKrEx(ctx context.Context, Pk address.PKAddress) (PKrAddressEx, error) {
+	PkrEx := PKrAddressEx{}
+	PkrEx[0] = axisparam.PKR_PREFIX
+	result, _ := s.GenPKr(ctx, Pk)
+	copy(PkrEx[1:], result[:])
+	return PkrEx, nil
+}
+
 func encodeNumber(number uint64) []byte {
 	enc := make([]byte, 8)
 	binary.BigEndian.PutUint64(enc, number)

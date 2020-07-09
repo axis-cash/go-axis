@@ -21,18 +21,19 @@ import (
 
 	"github.com/axis-cash/go-axis/common/hexutil"
 
-	"github.com/robfig/cron"
+	"github.com/axis-cash/go-axis-import/axisparam"
 	"github.com/axis-cash/go-axis-import/c_type"
 	"github.com/axis-cash/go-axis/accounts"
+	"github.com/axis-cash/go-axis/axisdb"
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/core"
 	"github.com/axis-cash/go-axis/core/types"
 	"github.com/axis-cash/go-axis/event"
 	"github.com/axis-cash/go-axis/log"
 	"github.com/axis-cash/go-axis/rlp"
-	"github.com/axis-cash/go-axis/axisdb"
 	"github.com/axis-cash/go-axis/zero/txs/assets"
 	"github.com/axis-cash/go-axis/zero/utils"
+	"github.com/robfig/cron"
 )
 
 type Account struct {
@@ -318,6 +319,13 @@ func (self *Exchange) GetPkr(pk *c_type.Uint512, index *c_type.Uint256) (pkr c_t
 
 	}
 
+}
+
+func (self *Exchange) GetPkrEx(pk *c_type.Uint512, index *c_type.Uint256) (pkr c_type.PKrEx, err error) {
+	pkr[0] = axisparam.PKR_PREFIX
+	result, _ := self.GetPkr(pk, index)
+	copy(pkr[1:],result[:])
+	return
 }
 
 func (self *Exchange) ClearUsedFlagForPK(pk *c_type.Uint512) (count int) {

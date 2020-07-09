@@ -287,6 +287,14 @@ func (b *AxisAPIBackend) GetPkr(pk *c_type.Uint512, index *c_type.Uint256) (pkr 
 	return b.axis.exchange.GetPkr(pk, index)
 }
 
+func (b *AxisAPIBackend) GetPkrEx(pk *c_type.Uint512, index *c_type.Uint256) (pkr c_type.PKrEx, e error) {
+	if b.axis.exchange == nil {
+		e = errors.New("not start exchange")
+		return
+	}
+	return b.axis.exchange.GetPkrEx(pk, index)
+}
+
 func (b *AxisAPIBackend) GetLockedBalances(pk c_type.Uint512) (balances map[string]*big.Int) {
 	if b.axis.exchange == nil {
 		return

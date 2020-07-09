@@ -79,6 +79,15 @@ func (s *PublicExchangeAPI) GetPkr(ctx context.Context, pk address.PKAddress, in
 	return
 }
 
+func (s *PublicExchangeAPI) GetPkrEx(ctx context.Context, pk address.PKAddress,
+	index *c_type.Uint256) (pkrAdd PKrAddressEx, e error) {
+
+	pkrAdd[0] = axisparam.PKR_PREFIX
+	result, _ := s.GetPkr(ctx, pk, index)
+	copy(pkrAdd[1:], result[:])
+	return
+}
+
 func (s *PublicExchangeAPI) GetLockedBalances(pk address.PKAddress) map[string]*Big {
 	result := map[string]*Big{}
 	balances := s.b.GetLockedBalances(pk.ToUint512())
@@ -476,6 +485,12 @@ func (s *PublicExchangeAPI) GetPkByPkr(ctx context.Context, pkr PKrAddress) (*ad
 		}
 	}
 	return nil, nil
+}
+func (s *PublicExchangeAPI) GetPkByPkrEx(ctx context.Context, pkrEx PKrAddressEx) (*address.PKAddress, error) {
+	pkr := PKrAddress{}
+	copy(pkr[:], pkrEx[1:])
+	result, _ := s.GetPkByPkr(ctx, pkr)
+	return result, nil
 }
 
 func (s *PublicExchangeAPI) GetBlockByNumber(ctx context.Context, blockNum *int64) (map[string]interface{}, error) {

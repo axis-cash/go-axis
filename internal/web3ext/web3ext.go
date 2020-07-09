@@ -787,9 +787,15 @@ web3._extend({
 		}),
        new web3._extend.Method({
 			name: 'getPkByPkr',
-			call: 'exchange_getPkByPkr',
+			call: 'exchange_getPkByPkrEx',
 			params: 1
 		}),
+/*
+		new web3._extend.Method({
+			name: 'getPkByPkrEx',
+			call: 'exchange_getPkByPkrEx',
+			params: 1
+		}),*/
         new web3._extend.Method({
 			name: 'getBlockByNumber',
 			call: 'exchange_getBlockByNumber',
