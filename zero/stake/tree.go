@@ -14,14 +14,14 @@ var (
 	rootKey   = common.BytesToHash([]byte("ROOT"))
 )
 
-type SNode struct {
+type XNode struct {
 	key     common.Hash
 	num     uint32
 	total   uint32
 	nodeNum uint32
 }
 
-func (node *SNode) init(state State) *SNode {
+func (node *XNode) init(state State) *XNode {
 	total := state.GetStakeState(node.totalKey())
 	num := state.GetStakeState(node.numKey())
 	nodeNum := state.GetStakeState(node.nodeNumKey())
@@ -31,27 +31,27 @@ func (node *SNode) init(state State) *SNode {
 	return node
 }
 
-func (node *SNode) left(state State) *SNode {
+func (node *XNode) left(state State) *XNode {
 	hash := state.GetStakeState(node.leftKey())
 	if hash == emptyHash {
 		return nil
 	} else {
-		left := &SNode{key: hash}
+		left := &XNode{key: hash}
 		return left.init(state)
 	}
 }
 
-func (node *SNode) right(state State) *SNode {
+func (node *XNode) right(state State) *XNode {
 	hash := state.GetStakeState(node.rightKey())
 	if hash == emptyHash {
 		return nil
 	} else {
-		right := &SNode{key: hash}
+		right := &XNode{key: hash}
 		return right.init(state)
 	}
 }
 
-func (node *SNode) leftKey() common.Hash {
+func (node *XNode) leftKey() common.Hash {
 	hash := common.BytesToHash(node.key[:])
 	hash[29] = 0
 	hash[30] = 0
@@ -59,7 +59,7 @@ func (node *SNode) leftKey() common.Hash {
 	return hash
 }
 
-func (node *SNode) rightKey() common.Hash {
+func (node *XNode) rightKey() common.Hash {
 	hash := common.BytesToHash(node.key[:])
 	hash[29] = 0
 	hash[30] = 0
@@ -67,7 +67,7 @@ func (node *SNode) rightKey() common.Hash {
 	return hash
 }
 
-func (node *SNode) numKey() common.Hash {
+func (node *XNode) numKey() common.Hash {
 	hash := common.BytesToHash(node.key[:])
 	hash[29] = 0
 	hash[30] = 1
@@ -75,7 +75,7 @@ func (node *SNode) numKey() common.Hash {
 	return hash
 }
 
-func (node *SNode) totalKey() common.Hash {
+func (node *XNode) totalKey() common.Hash {
 	hash := common.BytesToHash(node.key[:])
 	hash[29] = 0
 	hash[30] = 1
@@ -83,7 +83,7 @@ func (node *SNode) totalKey() common.Hash {
 	return hash
 }
 
-func (node *SNode) nodeNumKey() common.Hash {
+func (node *XNode) nodeNumKey() common.Hash {
 	hash := common.BytesToHash(node.key[:])
 	hash[29] = 1
 	hash[30] = 0
@@ -99,7 +99,7 @@ type STree struct {
 func NewTree(state State) *STree {
 	return &STree{common.Hash{}, state}
 }
-func (node *SNode) Print(state State) {
+func (node *XNode) Print(state State) {
 	if node.key == emptyHash {
 		return
 	}
@@ -109,28 +109,28 @@ func (node *SNode) Print(state State) {
 	fmt.Printf("%s, %v, %v, %v\n", common.Bytes2Hex(node.key[:]), utils.DecodeNumber32(total[28:32]), utils.DecodeNumber32(num[28:32]), utils.DecodeNumber32(nodeNum[28:32]))
 }
 
-func (node *SNode) MiddleOrder(state State) {
+func (node *XNode) MiddleOrder(state State) {
 	leftHash := state.GetStakeState(node.leftKey())
 	if leftHash != emptyHash {
-		left := &SNode{key: leftHash}
+		left := &XNode{key: leftHash}
 		left.MiddleOrder(state)
 	}
 	node.Print(state)
 	rightHash := state.GetStakeState(node.rightKey())
 	if rightHash != emptyHash {
-		right := &SNode{key: rightHash}
+		right := &XNode{key: rightHash}
 		right.MiddleOrder(state)
 	}
 }
 
 func (tree *STree) MiddleOrder() {
 	hash := tree.state.GetStakeState(rootKey)
-	rootNode := &SNode{key: hash}
+	rootNode := &XNode{key: hash}
 	rootNode.MiddleOrder(tree.state)
 }
 func (tree *STree) size() uint32 {
 	parentHash := tree.state.GetStakeState(rootKey)
-	parent := &SNode{key: parentHash}
+	parent := &XNode{key: parentHash}
 	return parent.init(tree.state).total
 }
 
@@ -138,7 +138,7 @@ func cmp(hash0, hash1 common.Hash) int {
 	return new(big.Int).SetBytes(hash0[0:32]).Cmp(new(big.Int).SetBytes(hash1[0:32]))
 }
 
-func (tree *STree) insert(node *SNode) {
+func (tree *STree) insert(node *XNode) {
 	hash := tree.state.GetStakeState(rootKey)
 	if hash == emptyHash {
 		tree.state.SetStakeState(rootKey, node.key)
@@ -146,12 +146,12 @@ func (tree *STree) insert(node *SNode) {
 		tree.state.SetStakeState(node.numKey(), common.BytesToHash(common.LeftPadBytes(utils.EncodeNumber32(node.num), 32)))
 		tree.state.SetStakeState(node.nodeNumKey(), common.BytesToHash(common.LeftPadBytes(utils.EncodeNumber32(node.nodeNum), 32)))
 	} else {
-		tree.insertNode(&SNode{key: hash}, node)
+		tree.insertNode(&XNode{key: hash}, node)
 	}
 
 }
 
-func (tree *STree) insertNode(parent *SNode, children *SNode) {
+func (tree *STree) insertNode(parent *XNode, children *XNode) {
 	for {
 		value := tree.state.GetStakeState(parent.totalKey())
 		totalNum := utils.DecodeNumber32(value[28:32])
@@ -178,21 +178,21 @@ func (tree *STree) insertNode(parent *SNode, children *SNode) {
 			tree.state.SetStakeState(children.nodeNumKey(), common.BytesToHash(common.LeftPadBytes(utils.EncodeNumber32(children.nodeNum), 32)))
 			return
 		} else {
-			parent = &SNode{key: hash}
+			parent = &XNode{key: hash}
 		}
 	}
 }
 
-func (tree *STree) deleteNodeByHash(nodeHash common.Hash, num uint32) *SNode {
+func (tree *STree) deleteNodeByHash(nodeHash common.Hash, num uint32) *XNode {
 	rootHash := tree.state.GetStakeState(rootKey)
 	if rootHash == nodeHash {
-		node := &SNode{key: rootHash}
+		node := &XNode{key: rootHash}
 		node.init(tree.state)
 		tree.deleteNode(rootKey, node, num)
 		return node
 	} else {
-		paths := []*SNode{}
-		parent := &SNode{key: rootHash}
+		paths := []*XNode{}
+		parent := &XNode{key: rootHash}
 		for {
 			var hash, key common.Hash
 			if cmp(nodeHash, parent.key) < 0 {
@@ -206,7 +206,7 @@ func (tree *STree) deleteNodeByHash(nodeHash common.Hash, num uint32) *SNode {
 			paths = append(paths, parent)
 
 			if hash == nodeHash {
-				node := &SNode{key: nodeHash}
+				node := &XNode{key: nodeHash}
 				node.init(tree.state)
 
 				for _, path := range paths {
@@ -226,13 +226,13 @@ func (tree *STree) deleteNodeByHash(nodeHash common.Hash, num uint32) *SNode {
 			if hash == emptyHash {
 				return nil
 			} else {
-				parent = &SNode{key: hash}
+				parent = &XNode{key: hash}
 			}
 		}
 	}
 }
 
-func (tree *STree) deleteNode(key common.Hash, children *SNode, num uint32) *SNode {
+func (tree *STree) deleteNode(key common.Hash, children *XNode, num uint32) *XNode {
 	number := children.num - num
 	tree.state.SetStakeState(children.numKey(), common.BytesToHash(common.LeftPadBytes(utils.EncodeNumber32(number), 32)))
 	tree.state.SetStakeState(children.totalKey(), common.BytesToHash(common.LeftPadBytes(utils.EncodeNumber32(children.total-num), 32)))
@@ -265,9 +265,9 @@ func (tree *STree) deleteNode(key common.Hash, children *SNode, num uint32) *SNo
 	return children
 }
 
-func (tree *STree) findByIndex(index uint32) (*SNode, error) {
+func (tree *STree) findByIndex(index uint32) (*XNode, error) {
 	root := tree.state.GetStakeState(rootKey)
-	node := &SNode{key: root}
+	node := &XNode{key: root}
 	node.init(tree.state)
 
 	for {

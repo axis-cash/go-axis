@@ -532,9 +532,9 @@ func (n *nodeRefcountDropBug) String() string {
 func (c *Server) dropNode(id fuse.NodeID, n uint64) (forget bool) {
 	c.meta.Lock()
 	defer c.meta.Unlock()
-	snode := c.node[id]
+	xnode := c.node[id]
 
-	if snode == nil {
+	if xnode == nil {
 		// this should only happen if refcounts kernel<->us disagree
 		// *and* two ForgetRequests for the same node race each other;
 		// this indicates a bug somewhere
@@ -545,16 +545,16 @@ func (c *Server) dropNode(id fuse.NodeID, n uint64) (forget bool) {
 		return true
 	}
 
-	if n > snode.refs {
-		c.debug(nodeRefcountDropBug{N: n, Refs: snode.refs, Node: id})
-		n = snode.refs
+	if n > xnode.refs {
+		c.debug(nodeRefcountDropBug{N: n, Refs: xnode.refs, Node: id})
+		n = xnode.refs
 	}
 
-	snode.refs -= n
-	if snode.refs == 0 {
-		snode.wg.Wait()
+	xnode.refs -= n
+	if xnode.refs == 0 {
+		xnode.wg.Wait()
 		c.node[id] = nil
-		delete(c.nodeRef, snode.node)
+		delete(c.nodeRef, xnode.node)
 		c.freeNode = append(c.freeNode, id)
 		return true
 	}
@@ -782,14 +782,14 @@ func (c *Server) serve(r fuse.Request) {
 		In:      r,
 	})
 	var node Node
-	var snode *serveNode
+	var xnode *serveNode
 	c.meta.Lock()
 	hdr := r.Hdr()
 	if id := hdr.Node; id != 0 {
 		if id < fuse.NodeID(len(c.node)) {
-			snode = c.node[uint(id)]
+			xnode = c.node[uint(id)]
 		}
-		if snode == nil {
+		if xnode == nil {
 			c.meta.Unlock()
 			c.debug(response{
 				Op:      opName(r),
@@ -805,7 +805,7 @@ func (c *Server) serve(r fuse.Request) {
 			r.RespondError(fuse.ESTALE)
 			return
 		}
-		node = snode.node
+		node = xnode.node
 	}
 	if c.req[hdr.ID] != nil {
 		// This happens with OSXFUSE.  Assume it's okay and
@@ -875,7 +875,7 @@ func (c *Server) serve(r fuse.Request) {
 		}
 	}()
 
-	if err := c.handleRequest(ctx, node, snode, r, done); err != nil {
+	if err := c.handleRequest(ctx, node, xnode, r, done); err != nil {
 		if err == context.Canceled {
 			select {
 			case <-parentCtx.Done():
@@ -904,7 +904,7 @@ func (c *Server) serve(r fuse.Request) {
 }
 
 // handleRequest will either a) call done(s) and r.Respond(s) OR b) return an error.
-func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode, r fuse.Request, done func(resp interface{})) error {
+func (c *Server) handleRequest(ctx context.Context, node Node, xnode *serveNode, r fuse.Request, done func(resp interface{})) error {
 	switch r := r.(type) {
 	default:
 		// Note: To FUSE, ENOSYS means "this server never implements this request."
@@ -931,7 +931,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 				return err
 			}
 		} else {
-			if err := snode.attr(ctx, &s.Attr); err != nil {
+			if err := xnode.attr(ctx, &s.Attr); err != nil {
 				return err
 			}
 		}
@@ -947,7 +947,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 			}
 		}
 
-		if err := snode.attr(ctx, &s.Attr); err != nil {
+		if err := xnode.attr(ctx, &s.Attr); err != nil {
 			return err
 		}
 		done(s)
@@ -965,7 +965,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		if err != nil {
 			return err
 		}
-		if err := c.saveLookup(ctx, &s.LookupResponse, snode, r.NewName, n2); err != nil {
+		if err := c.saveLookup(ctx, &s.LookupResponse, xnode, r.NewName, n2); err != nil {
 			return err
 		}
 		done(s)
@@ -1009,7 +1009,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		}
 		s := &fuse.LookupResponse{}
 		initLookupResponse(s)
-		if err := c.saveLookup(ctx, s, snode, r.NewName, n2); err != nil {
+		if err := c.saveLookup(ctx, s, xnode, r.NewName, n2); err != nil {
 			return err
 		}
 		done(s)
@@ -1054,7 +1054,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		if err != nil {
 			return err
 		}
-		if err := c.saveLookup(ctx, s, snode, r.Name, n2); err != nil {
+		if err := c.saveLookup(ctx, s, xnode, r.Name, n2); err != nil {
 			return err
 		}
 		done(s)
@@ -1072,7 +1072,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		if err != nil {
 			return err
 		}
-		if err := c.saveLookup(ctx, &s.LookupResponse, snode, r.Name, n2); err != nil {
+		if err := c.saveLookup(ctx, &s.LookupResponse, xnode, r.Name, n2); err != nil {
 			return err
 		}
 		done(s)
@@ -1108,7 +1108,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		if err != nil {
 			return err
 		}
-		if err := c.saveLookup(ctx, &s.LookupResponse, snode, r.Name, n2); err != nil {
+		if err := c.saveLookup(ctx, &s.LookupResponse, xnode, r.Name, n2); err != nil {
 			return err
 		}
 		s.Handle = c.saveHandle(h2, r.Hdr().Node)
@@ -1213,7 +1213,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 					var data []byte
 					for _, dir := range dirs {
 						if dir.Inode == 0 {
-							dir.Inode = c.dynamicInode(snode.inode, dir.Name)
+							dir.Inode = c.dynamicInode(xnode.inode, dir.Name)
 						}
 						data = fuse.AppendDirent(data, dir)
 					}
@@ -1351,7 +1351,7 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 		}
 		s := &fuse.LookupResponse{}
 		initLookupResponse(s)
-		if err := c.saveLookup(ctx, s, snode, r.Name, n2); err != nil {
+		if err := c.saveLookup(ctx, s, xnode, r.Name, n2); err != nil {
 			return err
 		}
 		done(s)
@@ -1400,12 +1400,12 @@ func (c *Server) handleRequest(ctx context.Context, node Node, snode *serveNode,
 	panic("not reached")
 }
 
-func (c *Server) saveLookup(ctx context.Context, s *fuse.LookupResponse, snode *serveNode, elem string, n2 Node) error {
+func (c *Server) saveLookup(ctx context.Context, s *fuse.LookupResponse, xnode *serveNode, elem string, n2 Node) error {
 	if err := nodeAttr(ctx, n2, &s.Attr); err != nil {
 		return err
 	}
 	if s.Attr.Inode == 0 {
-		s.Attr.Inode = c.dynamicInode(snode.inode, elem)
+		s.Attr.Inode = c.dynamicInode(xnode.inode, elem)
 	}
 
 	s.Node, s.Generation = c.saveNode(s.Attr.Inode, n2)
@@ -1432,9 +1432,9 @@ func (s *Server) invalidateNode(node Node, off int64, size int64) error {
 	s.meta.Lock()
 	id, ok := s.nodeRef[node]
 	if ok {
-		snode := s.node[id]
-		snode.wg.Add(1)
-		defer snode.wg.Done()
+		xnode := s.node[id]
+		xnode.wg.Add(1)
+		defer xnode.wg.Done()
 	}
 	s.meta.Unlock()
 	if !ok {
@@ -1507,9 +1507,9 @@ func (s *Server) InvalidateEntry(parent Node, name string) error {
 	s.meta.Lock()
 	id, ok := s.nodeRef[parent]
 	if ok {
-		snode := s.node[id]
-		snode.wg.Add(1)
-		defer snode.wg.Done()
+		xnode := s.node[id]
+		xnode.wg.Add(1)
+		defer xnode.wg.Done()
 	}
 	s.meta.Unlock()
 	if !ok {

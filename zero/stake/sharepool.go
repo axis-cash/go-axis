@@ -376,7 +376,7 @@ func (self *StakeState) getNewShareNum() uint32 {
 
 func (self *StakeState) AddPendingShare(share *Share) {
 	// tree := NewTree(self)
-	// tree.insert(&SNode{key: common.BytesToHash(share.Id()), num: share.InitNum})
+	// tree.insert(&XNode{key: common.BytesToHash(share.Id()), num: share.InitNum})
 	share.Status = STATUS_VALID
 	share.Num = share.InitNum
 	if share.Income == nil {
@@ -396,7 +396,7 @@ func (self *StakeState) insertSharePool(share *Share) error {
 	}
 	self.setNewShareNum(num - share.InitNum)
 	tree := NewTree(self)
-	tree.insert(&SNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num, nodeNum: 1})
+	tree.insert(&XNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num, nodeNum: 1})
 	return nil
 }
 
@@ -911,7 +911,7 @@ func (self *StakeState) processVotedShare(header *types.Header, bc blockChain) (
 	poshash := preHeader.HashPos()
 	indexs, e := FindShareIdxs(tree.size(), MaxVoteCount, NewHash256PRNG(poshash[:]))
 	if e == nil {
-		ndoes := []*SNode{}
+		ndoes := []*XNode{}
 		for _, index := range indexs {
 			sndoe, e1 := tree.findByIndex(index)
 			if e1 != nil {
@@ -1070,7 +1070,7 @@ func (self *StakeState) processOutDate(header *types.Header, bc blockChain) (err
 					return
 				}
 				if share.Num != sndoe.num {
-					err = errors.New(fmt.Sprint("ProcessBeforeApply: processOutDate err", " share.num=", share.Num, " snode.num=", sndoe.num))
+					err = errors.New(fmt.Sprint("ProcessBeforeApply: processOutDate err", " share.num=", share.Num, " xnode.num=", sndoe.num))
 					return
 				}
 
@@ -1166,7 +1166,7 @@ func (self *StakeState) processNowShares(header *types.Header, bc blockChain) (e
 			if share.BlockNumber != perHeader.Number.Uint64() {
 				continue
 			}
-			// tree.insert(&SNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num, nodeNum: 1})
+			// tree.insert(&XNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num, nodeNum: 1})
 			err = self.insertSharePool(share)
 			if err != nil {
 				return

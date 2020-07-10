@@ -153,18 +153,18 @@ obsd_get_device_list(struct libusb_context * ctx,
 	struct usb_device_ddesc dd;
 	unsigned long session_id;
 	char devices[USB_MAX_DEVICES];
-	char busnode[16];
+	char buxnode[16];
 	char *udevname;
 	int fd, addr, i, j;
 
 	usbi_dbg("");
 
 	for (i = 0; i < 8; i++) {
-		snprintf(busnode, sizeof(busnode), USBDEV "%d", i);
+		snprintf(buxnode, sizeof(buxnode), USBDEV "%d", i);
 
-		if ((fd = open(busnode, O_RDWR)) < 0) {
+		if ((fd = open(buxnode, O_RDWR)) < 0) {
 			if (errno != ENOENT && errno != ENXIO)
-				usbi_err(ctx, "could not open %s", busnode);
+				usbi_err(ctx, "could not open %s", buxnode);
 			continue;
 		}
 
@@ -763,9 +763,9 @@ _sync_gen_transfer(struct usbi_transfer *itransfer)
 int
 _bus_open(int number)
 {
-	char busnode[16];
+	char buxnode[16];
 
-	snprintf(busnode, sizeof(busnode), USBDEV "%d", number);
+	snprintf(buxnode, sizeof(buxnode), USBDEV "%d", number);
 
-	return open(busnode, O_RDWR);
+	return open(buxnode, O_RDWR);
 }

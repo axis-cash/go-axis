@@ -187,10 +187,10 @@ $ bootnode --genkey=boot.key
 $ bootnode --nodekey=boot.key
 ```
 
-With the bootnode online, it will display an [`snode` URL](https://github.com/axis-cash/go-axis/wiki/snode-url-format)
+With the bootnode online, it will display an [`xnode` URL](https://github.com/axis-cash/go-axis/wiki/xnode-url-format)
 that other nodes can use to connect to it and exchange peer information. Make sure to replace the
 displayed IP address information (most probably `[::]`) with your externally accessible IP to get the
-actual `snode` URL.
+actual `xnode` URL.
 
 *Note: You could also use a full fledged axis node as a bootnode, but it's the less recommended way.*
 
@@ -205,7 +205,7 @@ via the `--bootnodes` flag. It will probably also be desirable to keep the data 
 private network separated, so do also specify a custom `--datadir` flag.
 
 ```
-$ gaxis --datadir=path/to/custom/data/folder --bootnodes=<bootnode-snode-url-from-above>
+$ gaxis --datadir=path/to/custom/data/folder --bootnodes=<bootnode-xnode-url-from-above>
 ```
 
 *Note: Since your network will be completely cut off from the axis main and axis alpha networks, you'll also

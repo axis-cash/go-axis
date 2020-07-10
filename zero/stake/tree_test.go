@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func (node *SNode) println() {
+func (node *XNode) println() {
 	fmt.Printf("%s, %v, %v, %v\n", common.Bytes2Hex(node.key[:]), node.total, node.num, node.nodeNum)
 }
 
@@ -32,7 +32,7 @@ func TestTree(t *testing.T) {
 	fmt.Println(tree.size())
 }
 
-func initNode(seed uint64, num uint32, all map[common.Hash]uint32) *SNode {
+func initNode(seed uint64, num uint32, all map[common.Hash]uint32) *XNode {
 	hash := crypto.Keccak256Hash(utils.EncodeNumber(seed))
 	//for all[hash] > 0 {
 	//	u = uint64(rand.Intn(1000000))
@@ -41,7 +41,7 @@ func initNode(seed uint64, num uint32, all map[common.Hash]uint32) *SNode {
 
 	all[hash] = num
 
-	return &SNode{key: hash, total: num, num: num, nodeNum: 1}
+	return &XNode{key: hash, total: num, num: num, nodeNum: 1}
 }
 
 func initTree(state State) (*STree, map[common.Hash]uint32) {
@@ -54,7 +54,7 @@ func initTree(state State) (*STree, map[common.Hash]uint32) {
 		tree.insert(initNode(uint64(i), num, all))
 	}
 	hash := state.GetStakeState(rootKey)
-	root := &SNode{key: hash}
+	root := &XNode{key: hash}
 	root.MiddleOrder(state)
 	return tree, all
 }
@@ -104,7 +104,7 @@ func initTree(state State) (*STree, map[common.Hash]uint32) {
 //
 //		stateDB.RevertToSnapshot(snapshot)
 //
-//		rootNode := &SNode{key: state.GetStakeState(rootKey)}
+//		rootNode := &XNode{key: state.GetStakeState(rootKey)}
 //		rootNode.MiddleOrder(state)
 //
 //		root := stateDB.IntermediateRoot(true)
@@ -113,7 +113,7 @@ func initTree(state State) (*STree, map[common.Hash]uint32) {
 //	}
 //
 //	hash := state.GetStakeState(rootKey)
-//	rootNode := &SNode{key: hash}
+//	rootNode := &XNode{key: hash}
 //	rootNode.MiddleOrder(state)
 //
 //	root := stateDB.IntermediateRoot(true)
@@ -157,7 +157,7 @@ func TestDelByHash(t *testing.T) {
 			//	stateDB.RevertToSnapshot(snapshot)
 			//}
 
-			rootNode := &SNode{key: state.GetStakeState(rootKey)}
+			rootNode := &XNode{key: state.GetStakeState(rootKey)}
 			rootNode.init(state)
 			rootNode.println()
 			//rootNode.MiddleOrder(state)
@@ -175,7 +175,7 @@ func TestDelByHash(t *testing.T) {
 	}
 
 	hash := state.GetStakeState(rootKey)
-	root := &SNode{key: hash}
+	root := &XNode{key: hash}
 	fmt.Println("rootNode", common.Bytes2Hex(hash[:]))
 
 	root.MiddleOrder(state)

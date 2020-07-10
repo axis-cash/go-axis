@@ -86,7 +86,7 @@ func TestPosRewad(t *testing.T) {
 	//fmt.Println("root:", root.String())
 
 	tree := NewTree(state)
-	tree.insert(&SNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num})
+	tree.insert(&XNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num})
 	fmt.Println(state.ShareSize())
 	fmt.Println(maxReware)
 	fmt.Println(state.StakeCurrentReward(big.NewInt(3057599)))
@@ -104,7 +104,7 @@ func TestPosDif(t *testing.T) {
 	//fmt.Println("root:", root.String())
 
 	tree := NewTree(state)
-	tree.insert(&SNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num})
+	tree.insert(&XNode{key: common.BytesToHash(share.Id()), num: share.Num, total: share.Num})
 	fmt.Println(state.ShareSize())
 	price := state.CurrentPrice()
 	fmt.Println(price)
