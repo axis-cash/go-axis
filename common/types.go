@@ -394,7 +394,7 @@ func (a *UnprefixedAddress) UnmarshalText(input []byte) error {
 		copy(a[:], out[:])
 		return nil
 	} else {
-		return errors.New("invalid Address")
+		return errors.New("invalid Address #1")
 	}
 }
 

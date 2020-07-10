@@ -2,6 +2,7 @@ package ethapi
 
 import (
 	"context"
+	"github.com/axis-cash/mine-pool/build/_workspace/src/github.com/axis-cash/go-axis-import/axisparam"
 
 	"github.com/axis-cash/go-axis/zero/txs/stx/stx_v1"
 
@@ -114,6 +115,15 @@ func (s *PublicLocalAPI) Pk2Pkr(ctx context.Context, pk address.PKAddress, index
 	pkr := superzk.Pk2PKr(pk.ToUint512().NewRef(), index)
 	var pkrAddress PKrAddress
 	copy(pkrAddress[:], pkr[:])
+	return pkrAddress, nil
+}
+
+func (s *PublicLocalAPI) Pk2PkrEx(ctx context.Context, pk address.PKAddress, index *c_type.Uint256) (PKrAddressEx,
+	error) {
+	var pkrAddress PKrAddressEx
+	pkrAddress[0] = axisparam.PKR_PREFIX
+	pkr,_ := s.Pk2Pkr(ctx, pk, index)
+	copy(pkrAddress[1:], pkr[:])
 	return pkrAddress, nil
 }
 

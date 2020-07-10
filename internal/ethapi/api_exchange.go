@@ -576,6 +576,14 @@ func (s *PublicExchangeAPI) Pk2Pkr(ctx context.Context, pk address.PKAddress, in
 	copy(pkrAddress[:], pkr[:])
 	return pkrAddress, nil
 }
+func (s *PublicExchangeAPI) Pk2PkrEx(ctx context.Context, pk address.PKAddress, index *c_type.Uint256) (PKrAddressEx,
+	error) {
+	var pkrAddress PKrAddressEx
+	pkr,_ := s.Pk2Pkr(ctx, pk, index)
+	pkrAddress[0] = axisparam.PKR_PREFIX
+	copy(pkrAddress[1:], pkr[:])
+	return pkrAddress, nil
+}
 
 func (s *PublicExchangeAPI) FindRoots(pk address.PKAddress, cy Smbol, amount Big) (map[string]interface{}, error) {
 	utxos, remaining := exchange.CurrentExchange().FindRoots(pk.ToUint512().NewRef(), string(cy), amount.ToInt())

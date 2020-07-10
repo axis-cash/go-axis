@@ -312,7 +312,42 @@ func getKeyStore(ctx *cli.Context) string {
 	return keydir
 }
 
-var logo = ``
+var logo = `
+                                                                                                                                     
+                                                 xxXXXXXXXx                      .xXXXXXXx                                           
+                                              xxXXXXXXXXXXXXx                   xXXXXXXXXXXXx                                        
+                                            xXXXXXXXXXXXXXXXXx                .XXXXXXXXXXXXXXXx                                      
+                                          xXXXXXXXXXXXXXXXXXXXXx             xXXXXXXXXXXXXXXXXXXx                                    
+                                        xXXXXXXXXXXXXXXXXXXXXXXXx           xXXXXXXXXXXXXXXXXXXXXXx                                  
+                                       XXXXXXXXXXXXXXXXXXXXXXXXXXx         =XXXXXXXXXXXXXXXXXXXXXXXXx                                
+                                     xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx      xXXXXXXXXXXXXXXXXXXXXXXXXXXx                               
+                                    =XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx    =XXXXXXXXXXXXXXXXXXXXXXXXXXXXx                              
+                                   =XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.   xXXXXXXXXXXXXx          xxXXXx                             
+                                  =XXXx        xXXXXXXXXXXXXXXXXXXXXXXXx   .xXXXXXXXX               .xXXx                            
+                                  XXx            xXXXXXXXXXXXXXXXXXXXXXXx    =XXXXXx                  .XXx                           
+                                 xX               .xXXXXXXXXXXXXXXXXXXXXXXx   xXXXx                     xX                           
+                                xX                  =XXXXXXXXXXXXXXXXXXXXXXx    x.                       xx                          
+                                =.                   xXXXXXXXXXXXXXXXXXXXXXXx                             x                          
+                                x                      xXXXXXXXXXXXXXXXXXXXXXXx                           =                          
+                                .                       xXXXXXXXXXXXXXXXXXXXXXXx                          *                          
+                                                         .XXXXXXXXXXXXXXXXXXXXXXX.                                                   
+                                                           =XXXXXXXXXXXXXXXXXXXXXXx                                                  
+                                x                           xXXXXXXXXXXXXXXXXXXXXXXx                      =                          
+                                =                             xXXXXXXXXXXXXXXXXXXXXXXx                    x                          
+                                xx                        x    =XXXXXXXXXXXXXXXXXXXXXXx                  xx                          
+                                 xx                      XXXx   .XXXXXXXXXXXXXXXXXXXXXXX                xX                           
+                                 .XX                   xXXXXXx    xXXXXXXXXXXXXXXXXXXXXXXx            xXXx                           
+                                  =XXx                =XXXXXXXX    xXXXXXXXXXXXXXXXXXXXXXXXx        xXXXx                            
+                                   =XXXx.           xXXXXXXXXXXXx   .xXXXXXXXXXXXXXXXXXXXXXXXXXxxxXXXXXx                             
+                                    =XXXXXXxxxxxxXXXXXXXXXXXXXXXXx    =XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx                              
+                                     xXXXXXXXXXXXXXXXXXXXXXXXXXXX      xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx                               
+                                      .XXXXXXXXXXXXXXXXXXXXXXXXx         xXXXXXXXXXXXXXXXXXXXXXXXXXXx                                
+                                        xXXXXXXXXXXXXXXXXXXXXXx           xXXXXXXXXXXXXXXXXXXXXXXXx                                  
+                                          xXXXXXXXXXXXXXXXXXXx             .XXXXXXXXXXXXXXXXXXXXx                                    
+                                            xXXXXXXXXXXXXXXXx                xXXXXXXXXXXXXXXXXx                                      
+                                              xXXXXXXXXXXXXx                  xXXXXXXXXXXXXXx                                        
+                                                 xXXXXXXXx                      xXXXXXXXXx                  
+`
 
 func main() {
 	fmt.Println(logo)

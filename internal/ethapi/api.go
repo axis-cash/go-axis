@@ -251,6 +251,13 @@ func (s *PublicAccountAPI) IsMinePKr(Pkr PKrAddress) *address.PKAddress {
 
 }
 
+func (s *PublicAccountAPI) IsMinePKrEx(Pkr PKrAddressEx) *address.PKAddress {
+	pkr := PKrAddress{}
+	copy(pkr[:], Pkr[1:])
+	return s.IsMinePKr(pkr)
+
+}
+
 // PrivateAccountAPI provides an API to access accounts managed by this node.
 // It offers methods to create, (un)lock en list accounts. Some methods accept
 // passwords and are therefore considered private by default.
@@ -786,6 +793,15 @@ func (s *PublicBlockChainAPI) GenIndexPKr(ctx context.Context, Pk address.PKAddr
 	return result, nil
 }
 
+func (s *PublicBlockChainAPI) GenIndexPKrEx(ctx context.Context, Pk address.PKAddress, index uint64) (PKrAddressEx,
+	error) {
+	result := PKrAddressEx{}
+	result[0] = axisparam.PKR_PREFIX
+	pkr,_ := s.GenIndexPKr(ctx, Pk, index)
+	copy(result[1:], pkr[:])
+	return result, nil
+}
+
 func (s *PublicBlockChainAPI) GenOldIndexPKr(ctx context.Context, Pk address.PKAddress, index uint64) (PKrAddress, error) {
 	account, err := s.b.AccountManager().FindAccountByPk(Pk.ToUint512())
 	if err != nil {
@@ -796,6 +812,15 @@ func (s *PublicBlockChainAPI) GenOldIndexPKr(ctx context.Context, Pk address.PKA
 	PKr := account.GetPkr(&r)
 	result := PKrAddress{}
 	copy(result[:], PKr[:])
+	return result, nil
+}
+
+func (s *PublicBlockChainAPI) GenOldIndexPKrEx(ctx context.Context, Pk address.PKAddress, index uint64) (PKrAddressEx,
+	error) {
+	result := PKrAddressEx{}
+	result[0] = axisparam.PKR_PREFIX
+	pkr, _ := s.GenOldIndexPKr(ctx, Pk, index)
+	copy(result[1:], pkr[:])
 	return result, nil
 }
 
@@ -815,6 +840,16 @@ func (s *PublicBlockChainAPI) GenIndexPKrByTk(ctx context.Context, Tk address.TK
 	pkr := superzk.Pk2PKr(&pk, r)
 	result := PKrAddress{}
 	copy(result[:], pkr[:])
+	return result, nil
+}
+
+func (s *PublicBlockChainAPI) GenIndexPKrByTkEx(ctx context.Context, Tk address.TKAddress, index uint64) (PKrAddressEx,
+	error) {
+
+	result := PKrAddressEx{}
+	pkr,_ := s.GenIndexPKrByTk(ctx, Tk, index)
+	result[0] = axisparam.PKR_PREFIX
+	copy(result[1:], pkr[:])
 	return result, nil
 }
 

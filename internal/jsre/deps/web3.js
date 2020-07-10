@@ -2694,7 +2694,8 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
         var paramAddress = function (addr) {
             if (/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/i.test(addr)) {
                 bytes = base58ToBytes(addr);
-                if (bytes.length !== 96 && bytes.length !=64) {
+                //console.log("bytes.length:", bytes.length)
+                if (bytes.length !== 97 && bytes.length !== 96 && bytes.length !=64) {
                     return false;
                 }
                 return true;
@@ -2881,8 +2882,8 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 
         var isNewAddress =  function (addr) {
             var bs = base58ToBytes(addr);
-            if (bs.length!=64 && bs.length!=96) {
-                throw new Error("invalid address")
+            if (bs.length!=64 && bs.length!=96 && bs.length!=97) {
+                throw new Error("invalid address #js1")
             }
             return (bs[bs.length - 1] & (0x1 << 6)) !== 0;
         }
@@ -4571,7 +4572,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
             } else if (utils.isStrictAddress(address)) {
                 return address;
             }
-            throw new Error('invalid address');
+            throw new Error('invalid address #js2');
         };
 
 
@@ -4579,7 +4580,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
             if (utils.paramAddress(address)) {
                 return address
             }
-            throw new Error('invalid address');
+            throw new Error('invalid address #js3');
         };
 
 
@@ -6441,7 +6442,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 
             var isMinePKr = new Method({
                 name: 'isMinePKr',
-                call: 'axis_isMinePKr',
+                call: 'axis_isMinePKrEx',
                 params: 1
             });
 
@@ -6612,19 +6613,19 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
             });*/
             var genIndexPKr=new Method({
                 name: 'genIndexPKr',
-                call: 'axis_genIndexPKr',
+                call: 'axis_genIndexPKrEx',
                 params: 2,
                 inputFormatter: [formatters.inputAddressFormatter,null]
             });
             var genIndexPKrByTk=new Method({
                 name: 'genIndexPKrByTk',
-                call: 'axis_genIndexPKrByTk',
+                call: 'axis_genIndexPKrByTkEx',
                 params: 2,
             });
 
             var reSendTransaction = new Method({
                 name: 'reSendTransaction',
-                call: 'axis_reSendTransaction',
+                call: 'axis_reSendTransactioConvertAddressParamsn',
                 params: 1,
                 inputFormatter: [utils.toHex]
             });

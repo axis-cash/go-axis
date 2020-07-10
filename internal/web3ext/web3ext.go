@@ -818,7 +818,7 @@ web3._extend({
 		}),
         new web3._extend.Method({
 			name: 'pk2Pkr',
-			call: 'exchange_pk2Pkr',
+			call: 'exchange_pk2PkrEx',
             params: 2
 		}),
         new web3._extend.Method({
@@ -1038,7 +1038,7 @@ web3._extend({
 		}),
         new web3._extend.Method({
 			name: 'pk2Pkr',
-			call: 'local_pk2Pkr',
+			call: 'local_pk2PkrEx',
             params: 2
 		}),
         new web3._extend.Method({

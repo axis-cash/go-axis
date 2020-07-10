@@ -376,7 +376,15 @@ func (b *AllBase58Adrress) UnmarshalText(input []byte) error {
 	if err != nil {
 		return err
 	}
-	if len(out) == 96 {
+	if len(out) == 97 {
+		out, err = address.DecodeAddr(input[1:])
+		err := address.ValidPkr(out)
+		if err != nil {
+			return err
+		}
+		*b = out[:]
+		return nil
+	}else if len(out) == 96 {
 		err := address.ValidPkr(out)
 		if err != nil {
 			return err
