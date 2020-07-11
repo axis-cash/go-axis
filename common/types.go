@@ -321,8 +321,11 @@ func (a Address) MarshalText() ([]byte, error) {
 func (a *Address) UnmarshalText(input []byte) error {
 	if address.IsBase58Str(string(input)) {
 		out := base58.Decode(string(input))
-		if len(out) != 64 && len(out) != 96 {
-			return errors.New("address lenght must be 64 or 96 bytes")
+		if len(out) != 64 && len(out) != 96  && len(out) != 97 {
+			return errors.New("address lenght must be 64 or 96 or 97 bytes")
+		}
+		if len(out) == 97 {
+			out = base58.Decode(string(input[1:]))
 		}
 		if len(out) == 96 {
 			empty := Hash{}

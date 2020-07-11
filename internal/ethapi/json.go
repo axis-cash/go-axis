@@ -174,6 +174,9 @@ func (b *MixAdrress) UnmarshalText(input []byte) error {
 		return err
 	}
 
+	if len(out) == 97 {
+		out, err = address.DecodeAddr(input[1:])
+	}
 	if len(out) == 96 {
 		err := address.ValidPkr(out)
 		if err != nil {
@@ -243,6 +246,9 @@ func (b *AllMixedAddress) UnmarshalText(input []byte) error {
 	if err != nil {
 		return err
 	}
+	if len(out) == 97 {
+		out, err = address.DecodeAddr(input[1:])
+	}
 	if len(out) == 96 {
 		if isContract, err := IsContract(out); err != nil {
 			return err
@@ -306,6 +312,9 @@ func (b *ContractAddress) UnmarshalText(input []byte) error {
 	out, err := address.DecodeAddr(input)
 	if err != nil {
 		return err
+	}
+	if len(out) == 97 {
+		out, err = address.DecodeAddr(input[1:])
 	}
 	if len(out) == 96 {
 		addr := common.Address{}
@@ -378,13 +387,8 @@ func (b *AllBase58Adrress) UnmarshalText(input []byte) error {
 	}
 	if len(out) == 97 {
 		out, err = address.DecodeAddr(input[1:])
-		err := address.ValidPkr(out)
-		if err != nil {
-			return err
-		}
-		*b = out[:]
-		return nil
-	}else if len(out) == 96 {
+	}
+	if len(out) == 96 {
 		err := address.ValidPkr(out)
 		if err != nil {
 			return err

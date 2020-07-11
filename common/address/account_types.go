@@ -85,6 +85,9 @@ func (b *MixBase58Adrress) UnmarshalText(input []byte) error {
 	}
 	if IsBase58Str(string(input)) {
 		out := base58.Decode(string(input))
+		if len(out) == 97 {
+			out = base58.Decode(string(input[1:]))
+		}
 		if len(out) == 96 {
 			err := ValidPkr(out)
 			if err != nil {
