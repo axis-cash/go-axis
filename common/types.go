@@ -324,7 +324,7 @@ func (a *Address) UnmarshalText(input []byte) error {
 		if len(out) != 64 && len(out) != 96  && len(out) != 97 {
 			return errors.New("address lenght must be 64 or 96 or 97 bytes")
 		}
-		if len(out) == 97 {
+		if len(out) >= 97 {
 			out = base58.Decode(string(input[1:]))
 		}
 		if len(out) == 96 {

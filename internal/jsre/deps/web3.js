@@ -2695,7 +2695,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
             if (/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/i.test(addr)) {
                 bytes = base58ToBytes(addr);
                 //console.log("bytes.length:", bytes.length)
-                if (bytes.length !== 97 && bytes.length !== 96 && bytes.length !=64) {
+                if (bytes.length !== 98 && bytes.length !== 97 && bytes.length !== 96 && bytes.length !=64) {
                     return false;
                 }
                 return true;
