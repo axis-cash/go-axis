@@ -2,7 +2,7 @@ package ethapi
 
 import (
 	"context"
-	"github.com/axis-cash/mine-pool/build/_workspace/src/github.com/axis-cash/go-axis-import/axisparam"
+	"github.com/axis-cash/go-axis-import/axisparam"
 
 	"github.com/axis-cash/go-axis/zero/txs/stx/stx_v1"
 
