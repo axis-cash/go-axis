@@ -19,10 +19,9 @@ package address
 import (
 	"encoding/hex"
 	"errors"
+	"github.com/btcsuite/btcutil/base58"
 	"regexp"
 	"strings"
-
-	"github.com/btcsuite/btcutil/base58"
 
 	"github.com/axis-cash/go-axis-import/c_type"
 	"github.com/axis-cash/go-axis-import/superzk"
@@ -89,12 +88,28 @@ func (b *MixBase58Adrress) UnmarshalText(input []byte) error {
 			out = base58.Decode(string(input[1:]))
 		}
 		if len(out) == 96 {
+			i := 0
+			for i < 2{
+				i++
+				err := ValidPkr(out)
+				if i == 1 && err != nil {
+					out = base58.Decode(string(input[i:]))
+					continue;
+				}else if(err != nil){
+					return err
+				}
+				*b = out[:]
+				return nil
+			}
+			return nil
+			/*
 			err := ValidPkr(out)
 			if err != nil {
 				return err
 			}
 			*b = out[:]
 			return nil
+			*/
 		} else if len(out) == 64 {
 			err := ValidPk(out)
 			if err != nil {

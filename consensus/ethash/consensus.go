@@ -262,6 +262,9 @@ func calcDifficultyAutumnTwilight(time uint64, parent *types.Header) *big.Int {
 	// diff = (parent_diff +
 	//         (parent_diff / 2048 * max((1 - ((timestamp - parent.timestamp) // 9), -99))
 	//        )
+	if axisparam.Is_Dev() {
+		return  big.NewInt(1);
+	}
 	bigTime := new(big.Int).SetUint64(time)
 	bigParentTime := new(big.Int).Set(parent.Time)
 
