@@ -333,7 +333,7 @@ func (self *worker) powResultLoop() {
 			if result == nil {
 				continue
 			}
-			if result.Block.Header().Number.Uint64() < axisparam.SIP4() {
+			if result.Block.Header().Number.Uint64() < axisparam.XIP4() {
 				self.recv <- result
 			} else {
 				lotter := newLotter(self, result.Block, result.Work.state)
@@ -524,7 +524,7 @@ func (self *worker) commitNewWork() {
 	}
 	txs := types.NewTransactionsByPrice(pending)
 
-	if header.Number.Uint64() >= axisparam.SIP4() {
+	if header.Number.Uint64() >= axisparam.XIP4() {
 		stakeState := stake.NewStakeState(work.state)
 		err := stakeState.ProcessBeforeApply(self.chain, header)
 		if err != nil {

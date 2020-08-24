@@ -355,7 +355,7 @@ func (ethash *Ethash) VerifySeal(chain consensus.ChainReader, header *types.Head
 
 	var digest []byte
 	var result []byte
-	if number >= axisparam.SIP3() {
+	if number >= axisparam.XIP3() {
 		//dataset := ethash.dataset_async(number)
 		//if dataset.generated() {
 		//	digest, result = progpowFull(dataset.dataset, header.HashPow().Bytes(), header.Nonce.Uint64(), number)
@@ -399,7 +399,7 @@ func (ethash *Ethash) Finalize(chain consensus.ChainReader, header *types.Header
 		stateDB.SetBalance(state.EmptyAddress, "AXIS", new(big.Int))
 	}
 
-	if header.Number.Uint64() == axisparam.SIP3() {
+	if header.Number.Uint64() == axisparam.XIP3() {
 		addr := common.Base58ToAddress("3wKXubLuVfWff5swagTSfXTYb9vhyS1LDf5KKNxQ14Zvwx1jMFbxGBt9UfrTrjK1ocGWTaaknVSHwxhWqBq7STcH")
 		stateDB.SetCode(addr, code)
 	}
@@ -453,9 +453,9 @@ func Halve(blockNumber *big.Int) *big.Int {
 func accumulateRewards(config *params.ChainConfig, statedb *state.StateDB, header *types.Header, gasReward uint64) {
 
 	var reward *big.Int
-	if header.Number.Uint64() >= axisparam.SIP4() {
+	if header.Number.Uint64() >= axisparam.XIP4() {
 		reward = accumulateRewardsV4(statedb, header)
-	} else if header.Number.Uint64() >= axisparam.SIP3() {
+	} else if header.Number.Uint64() >= axisparam.XIP3() {
 		reward = accumulateRewardsV3(statedb, header)
 	} else if header.Number.Uint64() >= axisparam.XIP1() {
 		reward = accumulateRewardsV2(statedb, header)

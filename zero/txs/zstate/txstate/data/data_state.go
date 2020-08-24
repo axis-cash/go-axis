@@ -36,7 +36,7 @@ func OutName0(k *c_type.Uint256) (ret []byte) {
 }
 
 func (self *Data) RecordState(putter axisdb.Putter, root *c_type.Uint256) {
-	if int64(self.Num) > int64(axisparam.SIP2())-13000 {
+	if int64(self.Num) > int64(axisparam.XIP2())-13000 {
 		if out, ok := self.G2outs[*root]; ok {
 			rs := localdb.RootState{}
 			rs.Num = self.Num

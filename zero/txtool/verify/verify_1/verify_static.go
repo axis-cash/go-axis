@@ -201,7 +201,7 @@ func (self *verifyWithoutStateCtx) verifyOutC() (e error) {
 
 func (self *verifyWithoutStateCtx) verifyBalance() (e error) {
 	if self.num >= axisparam.SIP6() {
-		if self.oout_count+self.zout_count > axisparam.MAX_Z_OUT_LENGTH_SIP2 {
+		if self.oout_count+self.zout_count > axisparam.MAX_Z_OUT_LENGTH_XIP2 {
 			e = verify_utils.ReportError("verify error: out_size > 500", self.tx)
 			return
 		}

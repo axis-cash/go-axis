@@ -341,7 +341,7 @@ func (s *PrivateAccountAPI) NewAccount(password string) (address.PKAddress, erro
 		at = uint64(0)
 	}
 	version := 1
-	if maxNumber >= axisparam.SIP5() {
+	if maxNumber >= axisparam.XIP5() {
 		version = 2
 	}
 	acc, err := fetchKeystore(s.am).NewAccount(password, at, version)
@@ -370,7 +370,7 @@ func (s *PrivateAccountAPI) NewAccountWithMnemonic(password string) (map[string]
 		at = uint64(0)
 	}
 	version := 1
-	if maxNumber >= axisparam.SIP5() {
+	if maxNumber >= axisparam.XIP5() {
 		version = 2
 	}
 	mnemonic, acc, err := fetchKeystore(s.am).NewAccountWithMnemonic(password, at, version)
@@ -408,9 +408,9 @@ func (s *PrivateAccountAPI) ImportRawKey(privkey string, password string, v *int
 		version = *v
 	}
 	maxBlockNumber := getMaxBlockNumer(s.b)
-	if maxBlockNumber < axisparam.SIP5() {
+	if maxBlockNumber < axisparam.XIP5() {
 		if version == 2 {
-			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after SIP5=%v", axisparam.SIP5()))
+			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after XIP5=%v", axisparam.XIP5()))
 		}
 	}
 	if version != 1 && version != 2 {
@@ -421,8 +421,8 @@ func (s *PrivateAccountAPI) ImportRawKey(privkey string, password string, v *int
 		at = *a
 	}
 	if version == 2 {
-		if at < axisparam.SIP5() {
-			at = axisparam.SIP5()
+		if at < axisparam.XIP5() {
+			at = axisparam.XIP5()
 		}
 	}
 	acc, err := fetchKeystore(s.am).ImportECDSA(key, password, at, version)
@@ -436,11 +436,11 @@ func (s *PrivateAccountAPI) ImportTk(tk address.TKAddress, a *uint64) (address.P
 	}
 	maxBlockNumber := getMaxBlockNumer(s.b)
 	if c_superzk.IsFlagSet(tk[:]) {
-		if at < axisparam.SIP5() {
-			at = axisparam.SIP5()
+		if at < axisparam.XIP5() {
+			at = axisparam.XIP5()
 		}
-		if maxBlockNumber < axisparam.SIP5() {
-			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after SIP5=%v", axisparam.SIP5()))
+		if maxBlockNumber < axisparam.XIP5() {
+			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after XIP5=%v", axisparam.XIP5()))
 		}
 	}
 	acc, err := fetchKeystore(s.am).ImportTk(tk.ToTk(), at)
@@ -479,14 +479,14 @@ func (s *PrivateAccountAPI) ImportMnemonic(mnemonic string, password string, a *
 		at = *a
 	}
 	maxBlockNumber := getMaxBlockNumer(s.b)
-	if maxBlockNumber < axisparam.SIP5() {
+	if maxBlockNumber < axisparam.XIP5() {
 		if version == 2 {
-			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after SIP5=%v", axisparam.SIP5()))
+			return address.PKAddress{}, errors.New(fmt.Sprintf("account version is 2 must be after XIP5=%v", axisparam.XIP5()))
 		}
 	}
 	if version == 2 {
-		if at < axisparam.SIP5() {
-			at = axisparam.SIP5()
+		if at < axisparam.XIP5() {
+			at = axisparam.XIP5()
 		}
 	}
 	acc, err := fetchKeystore(s.am).ImportECDSA(key, password, at, version)

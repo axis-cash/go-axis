@@ -204,7 +204,7 @@ func (st *StateTransition) TransitionDb() (ret []byte, usedGas uint64, failed bo
 	} else {
 		to := msg.To()
 
-		if evm.BlockNumber.Uint64() < axisparam.SIP4() || (to != nil && st.state.IsContract(*to)) {
+		if evm.BlockNumber.Uint64() < axisparam.XIP4() || (to != nil && st.state.IsContract(*to)) {
 			ret, st.gas, vmerr, _ = evm.Call(sender, st.to(), st.data, st.gas, msg.Asset())
 		}
 	}

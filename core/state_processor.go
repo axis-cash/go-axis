@@ -108,14 +108,14 @@ func ApplyTransaction(config *params.ChainConfig, bc ChainContext, author *commo
 	}
 
 	var poolId, shareId *common.Hash
-	if header.Number.Uint64() >= axisparam.SIP4() {
+	if header.Number.Uint64() >= axisparam.XIP4() {
 		if poolId, shareId, err = applyStake(msg.From(), tx.GetZZSTX().Desc_Cmd, statedb, tx.Hash(), header.Number.Uint64()); err != nil {
 			log.Info("applyStake", "error", err)
 			return nil, 0, err
 		}
 	}
 
-	if header.Number.Uint64() < axisparam.SIP4() || (tx.GetZZSTX().Desc_Cmd.Contract != nil) {
+	if header.Number.Uint64() < axisparam.XIP4() || (tx.GetZZSTX().Desc_Cmd.Contract != nil) {
 		key := header.Coinbase.ToCaddr()
 		statedb.AddNonceAddress(key[:], header.Coinbase)
 	}

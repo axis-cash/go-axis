@@ -83,7 +83,7 @@ type headerMarshaling struct {
 }
 
 func (h *Header) Valid() bool {
-	if h.Number.Uint64() >= axisparam.SIP5() {
+	if h.Number.Uint64() >= axisparam.XIP5() {
 		return true
 	} else {
 		if h.Licr.H == 0 {
@@ -140,7 +140,7 @@ func StakeHash(currentHashPos *common.Hash, parentHashPos *common.Hash, isPool b
 }
 
 func (h *Header) ActualDifficulty() *big.Int {
-	if h.Number.Uint64() >= axisparam.SIP5() {
+	if h.Number.Uint64() >= axisparam.XIP5() {
 		return h.Difficulty
 	} else {
 		if h.Valid() {

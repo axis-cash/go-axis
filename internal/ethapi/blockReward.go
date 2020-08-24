@@ -147,9 +147,9 @@ func GetBlockReward(block *types.Block) [2]*big.Int {
 	diff := block.Difficulty()
 	gasUsed := block.GasUsed()
 	gasLimit := block.GasLimit()
-	if number.Uint64() >= axisparam.SIP4() {
+	if number.Uint64() >= axisparam.XIP4() {
 		return accumulateRewardsV4(number, diff)
-	} else if number.Uint64() >= axisparam.SIP3() {
+	} else if number.Uint64() >= axisparam.XIP3() {
 		return accumulateRewardsV3(number, diff)
 	} else if number.Uint64() >= axisparam.XIP1() {
 		return accumulateRewardsV2(number, diff)

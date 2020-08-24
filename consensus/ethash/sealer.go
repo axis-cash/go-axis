@@ -135,7 +135,7 @@ search:
 			// Compute the PoW value of this nonce
 			var digest []byte
 			var result []byte
-			if number >= axisparam.SIP3() {
+			if number >= axisparam.XIP3() {
 				digest, result = progpowFull(dataset.dataset, hash, nonce, number)
 			} else {
 				digest, result = hashimotoFull(dataset.dataset, hash, nonce, number)

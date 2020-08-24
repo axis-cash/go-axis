@@ -172,7 +172,7 @@ func (state *ZState) AddTxOut(addr common.Address, asset assets.Asset, txhash co
 	}
 	if need_add {
 		pkr := addr.ToPKr()
-		if state.Num() >= axisparam.SIP5() {
+		if state.Num() >= axisparam.XIP5() {
 			if c_superzk.IsSzkPKr(pkr) {
 				o := stx_v1.Out_P{PKr: *addr.ToPKr(), Asset: asset, Memo: c_type.Uint512{}}
 				state.addOut_P(&o, txhash)

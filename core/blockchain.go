@@ -1009,7 +1009,7 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 	rawdb.WriteBlock(batch, block)
 	blockhash := block.Hash()
 
-	if block.Header().Number.Uint64() >= axisparam.SIP4() {
+	if block.Header().Number.Uint64() >= axisparam.XIP4() {
 		state.GetStakeCons().Record(block.Header(), batch)
 		stakeState := stake.NewStakeState(state)
 		err = stakeState.RecordVotes(batch, block)
@@ -1104,7 +1104,7 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 		// Split same-difficulty blocks by number, then at random
 		reorg = block.NumberU64() < currentBlock.NumberU64()
 		if !reorg && block.NumberU64() == currentBlock.NumberU64() {
-			if block.NumberU64() < axisparam.SIP4() {
+			if block.NumberU64() < axisparam.XIP4() {
 				if block.Transactions().Len() == currentBlock.Transactions().Len() {
 					reorg = mrand.Float64() < 0.5
 				} else {
@@ -1342,7 +1342,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks, local bool) (int, []interf
 			}
 		}
 
-		if axisparam.SIP4() <= block.NumberU64() {
+		if axisparam.XIP4() <= block.NumberU64() {
 			stakeState := stake.NewStakeState(state)
 			err = stakeState.ProcessBeforeApply(bc, block.Header())
 			if err != nil {

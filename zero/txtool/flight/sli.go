@@ -19,7 +19,7 @@ func GenTx(param *txtool.GTxParam) (gtx txtool.GTx, e error) {
 	var need_szk = true
 
 	if (txtool.Ref_inst.Bc != nil) && (!axisparam.Is_Offline()) {
-		if txtool.Ref_inst.Bc.GetCurrenHeader().Number.Uint64()+1 < axisparam.SIP5() {
+		if txtool.Ref_inst.Bc.GetCurrenHeader().Number.Uint64()+1 < axisparam.XIP5() {
 			need_szk = false
 			param.Z = nil
 		} else {
