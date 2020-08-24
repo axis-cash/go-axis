@@ -395,7 +395,7 @@ var code = common.Hex2Bytes("6080604052600436106100da5763ffffffff7c0100000000000
 // Finalize implements consensus.Engine, accumulating the block rewards,
 // setting the final state and assembling the block.
 func (ethash *Ethash) Finalize(chain consensus.ChainReader, header *types.Header, stateDB *state.StateDB, txs []*types.Transaction, receipts []*types.Receipt, gasReward uint64) (*types.Block, error) {
-	if header.Number.Uint64() == axisparam.SIP1() {
+	if header.Number.Uint64() == axisparam.XIP1() {
 		stateDB.SetBalance(state.EmptyAddress, "AXIS", new(big.Int))
 	}
 
@@ -457,7 +457,7 @@ func accumulateRewards(config *params.ChainConfig, statedb *state.StateDB, heade
 		reward = accumulateRewardsV4(statedb, header)
 	} else if header.Number.Uint64() >= axisparam.SIP3() {
 		reward = accumulateRewardsV3(statedb, header)
-	} else if header.Number.Uint64() >= axisparam.SIP1() {
+	} else if header.Number.Uint64() >= axisparam.XIP1() {
 		reward = accumulateRewardsV2(statedb, header)
 	} else {
 		reward = accumulateRewardsV1(config, statedb, header)
@@ -628,6 +628,36 @@ func accumulateRewardsV4(statedb *state.StateDB, header *types.Header) *big.Int 
 		reward = new(big.Int).Set(hRewardV4)
 	}
 
+	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(header.Number, halveNimber), interval), big1)
+	reward.Div(reward, new(big.Int).Exp(big2, i, nil))
+
+	teamReward := new(big.Int).Div(hRewardV4, big.NewInt(4))
+	teamReward = new(big.Int).Div(teamReward, new(big.Int).Exp(big2, i, nil))
+	statedb.AddBalance(teamRewardPool, "AXIS", teamReward)
+
+	if header.Number.Uint64()%5 == 0 {
+		balance := statedb.GetBalance(teamRewardPool, "AXIS")
+		statedb.SubBalance(teamRewardPool, "AXIS", balance)
+		assetTeam := assets.Asset{Tkn: &assets.Token{
+			Currency: *common.BytesToHash(common.LeftPadBytes([]byte("AXIS"), 32)).HashToUint256(),
+			Value:    utils.U256(*balance),
+		},
+		}
+		statedb.NextZState().AddTxOut(teamAddress, assetTeam, common.Hash{})
+	}
+	return reward
+}
+
+func accumulateRewardsV5(statedb *state.StateDB, header *types.Header) *big.Int {
+	diff := new(big.Int).Div(header.Difficulty, big.NewInt(1000000000))
+	reward := new(big.Int).Add(new(big.Int).Mul(argA, diff), argB)
+
+	if reward.Cmp(lReward) < 0 {
+		reward = new(big.Int).Set(lReward)
+	} else if reward.Cmp(hRewardV4) > 0 {
+		reward = new(big.Int).Set(hRewardV4)
+	}
+	reward.Div(reward, big.NewInt(2))
 	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(header.Number, halveNimber), interval), big1)
 	reward.Div(reward, new(big.Int).Exp(big2, i, nil))
 

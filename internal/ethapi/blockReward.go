@@ -151,7 +151,7 @@ func GetBlockReward(block *types.Block) [2]*big.Int {
 		return accumulateRewardsV4(number, diff)
 	} else if number.Uint64() >= axisparam.SIP3() {
 		return accumulateRewardsV3(number, diff)
-	} else if number.Uint64() >= axisparam.SIP1() {
+	} else if number.Uint64() >= axisparam.XIP1() {
 		return accumulateRewardsV2(number, diff)
 	} else {
 		var res [2]*big.Int
