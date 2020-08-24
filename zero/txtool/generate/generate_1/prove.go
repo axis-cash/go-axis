@@ -71,7 +71,7 @@ func (self *prove_ctx) prove() (e error) {
 		g.asset = out.Asset.ToTypeAsset()
 		g.index = i
 
-		sip6 := axisparam.SIP6()
+		sip6 := axisparam.XIP6()
 		if axisparam.Is_Offline() {
 			sip6 = uint64(0)
 		}

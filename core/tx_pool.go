@@ -603,8 +603,8 @@ func (pool *TxPool) add(tx *types.Transaction, local bool) (bool, error) {
 	currentBlockNum := pool.chain.CurrentBlock().NumberU64()
 
 	if true {
-		if (axisparam.SIP6()-25) < currentBlockNum && currentBlockNum < (axisparam.SIP6()+25) {
-			return false, fmt.Errorf("protect SIP6:%v", axisparam.SIP6())
+		if (axisparam.XIP6()-25) < currentBlockNum && currentBlockNum < (axisparam.XIP6()+25) {
+			return false, fmt.Errorf("protect XIP6:%v", axisparam.XIP6())
 		}
 	}
 

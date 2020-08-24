@@ -889,7 +889,7 @@ const (
 	SIOCSIFMUXID                  = -0x7fdf96a7
 	SIOCSIFNAME                   = -0x7fdf96b7
 	SIOCSIFNETMASK                = -0x7fdf96e6
-	SIOCSIP6ADDRPOLICY            = -0x7fff965d
+	SIOCXIP6ADDRPOLICY            = -0x7fff965d
 	SIOCSIPMSFILTER               = -0x7ffb964b
 	SIOCSLGETREQ                  = -0x3fdf96b9
 	SIOCSLIFADDR                  = -0x7f879690

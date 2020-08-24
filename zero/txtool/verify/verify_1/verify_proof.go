@@ -17,7 +17,7 @@ func (self *verifyWithoutStateCtx) ProcessVerifyProof() {
 		g.proof = out.Proof
 		g.asset_cm = out.AssetCM
 		g.pkr = out.PKr
-		if self.num >= axisparam.SIP6() {
+		if self.num >= axisparam.XIP6() {
 			g.isEx = true
 		}
 		self.cout_proof_proc.StartProc(&g)

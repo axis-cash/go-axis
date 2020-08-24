@@ -107,7 +107,7 @@ func (self *GTxParam) GenZ() (e error) {
 	self.Z = &Z
 	if Ref_inst.Bc != nil {
 		num := Ref_inst.Bc.GetCurrenHeader().Number.Uint64()
-		if num < axisparam.SIP6() {
+		if num < axisparam.XIP6() {
 			if len(self.Outs) > 9 {
 				e = errors.New("only 9 outs allowed before sip6")
 				return

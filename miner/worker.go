@@ -582,7 +582,7 @@ func (env *Work) commitTransactions(mux *event.TypeMux, txs *types.TransactionsB
 			break
 		}
 
-		if env.header.Number.Uint64() == axisparam.SIP6() {
+		if env.header.Number.Uint64() == axisparam.XIP6() {
 			txs.Shift()
 			env.errHandledTxs = append(env.errHandledTxs, tx)
 			continue
