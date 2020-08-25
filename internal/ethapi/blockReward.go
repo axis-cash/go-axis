@@ -1,10 +1,6 @@
 package ethapi
 
 import (
-	"github.com/axis-cash/go-axis/common"
-	"github.com/axis-cash/go-axis/core/state"
-	"github.com/axis-cash/go-axis/zero/txs/assets"
-	"github.com/axis-cash/go-axis/zero/utils"
 	"math/big"
 
 	"github.com/axis-cash/go-axis/core/types"
@@ -141,8 +137,9 @@ func accumulateRewardsV4(number, bdiff *big.Int) [2]*big.Int {
 
 }
 
-func accumulateRewardsV5(statedb *state.StateDB, header *types.Header) *big.Int {
-	diff := new(big.Int).Div(header.Difficulty, big.NewInt(1000000000))
+func accumulateRewardsV5(number, bdiff *big.Int) [2]*big.Int {
+	var res [2]*big.Int
+	diff := new(big.Int).Div(bdiff, big.NewInt(1000000000))
 	reward := new(big.Int).Add(new(big.Int).Mul(argA, diff), argB)
 
 	if reward.Cmp(lReward) < 0 {
@@ -151,24 +148,12 @@ func accumulateRewardsV5(statedb *state.StateDB, header *types.Header) *big.Int 
 		reward = new(big.Int).Set(hRewardV4)
 	}
 	reward.Div(reward, big.NewInt(2))
-	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(header.Number, halveNimber), interval), big1)
+	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(number, halveNimber), interval), big1)
 	reward.Div(reward, new(big.Int).Exp(big2, i, nil))
 
-	teamReward := new(big.Int).Div(hRewardV4, big.NewInt(4))
-	teamReward = new(big.Int).Div(teamReward, new(big.Int).Exp(big2, i, nil))
-	statedb.AddBalance(teamRewardPool, "AXIS", teamReward)
-
-	if header.Number.Uint64()%5 == 0 {
-		balance := statedb.GetBalance(teamRewardPool, "AXIS")
-		statedb.SubBalance(teamRewardPool, "AXIS", balance)
-		assetTeam := assets.Asset{Tkn: &assets.Token{
-			Currency: *common.BytesToHash(common.LeftPadBytes([]byte("AXIS"), 32)).HashToUint256(),
-			Value:    utils.U256(*balance),
-		},
-		}
-		statedb.NextZState().AddTxOut(teamAddress, assetTeam, common.Hash{})
-	}
-	return reward
+	res[0] = reward
+	res[1] = big.NewInt(0)
+	return res
 }
 
 /**
