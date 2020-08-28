@@ -127,7 +127,7 @@ func (b PKrAddressEx) ToPKr() *c_type.PKrEx {
 }
 
 func (b PKrAddressEx) MarshalText() ([]byte, error) {
-	return []byte(b.String()), nil
+	return []byte(b.String()[1:]), nil
 }
 
 func (b PKrAddressEx) String() string {
@@ -169,6 +169,7 @@ func (b *MixAdrress) UnmarshalText(input []byte) error {
 	if len(input) == 0 {
 		return nil
 	}
+
 	out, err := address.DecodeAddr(input)
 	if err != nil {
 		return err
