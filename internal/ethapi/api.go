@@ -752,6 +752,13 @@ func (s *PublicBlockChainAPI) GetFullAddress(ctx context.Context, shortAddresses
 
 }
 
+func (s *PublicBlockChainAPI) GetShortAddress(ctx context.Context, addr AllMixedAddress) hexutil.Bytes {
+	var pkr c_type.PKr
+	copy(pkr[:], addr[:])
+	shortAddr := c_superzk.HashPKr(pkr.NewRef())
+	return hexutil.Bytes(shortAddr[:])
+}
+
 func (s *PublicBlockChainAPI) GenPKr(ctx context.Context, Pk address.PKAddress) (PKrAddress, error) {
 	account, err := s.b.AccountManager().FindAccountByPk(Pk.ToUint512())
 	if err != nil {
@@ -1074,21 +1081,20 @@ func (s *PublicBlockChainAPI) GetBlockTotalRewardByNumber(ctx context.Context, b
 		}
 	}
 	if block != nil && blockNr >= 0 {
-		state, header, err := s.b.StateAndHeaderByNumber(ctx, blockNr)
 
-		if err != nil {
+		shareNum := stake.BlockShareNum(s.b.ChainDb(), block.Hash())
+		if shareNum == 0 {
 			return hexutil.Big(*reward)
 		}
-		stakeState := stake.NewStakeState(state)
-		solo, total := stakeState.StakeCurrentReward(big.NewInt(int64(blockNr)))
-		for _, v := range header.CurrentVotes {
+		solo, total := stake.GetPosRewardBySize(shareNum, blockNr.Int64())
+		for _, v := range block.Header().CurrentVotes {
 			if v.IsPool {
 				reward.Add(reward, total)
 			} else {
 				reward.Add(reward, solo)
 			}
 		}
-		for _, v := range header.ParentVotes {
+		for _, v := range block.Header().ParentVotes {
 			if v.IsPool {
 				reward.Add(reward, total)
 			} else {
@@ -1296,8 +1302,13 @@ func (s *PublicBlockChainAPI) doCall(ctx context.Context, args CallArgs, blockNr
 	res, gas, failed, err := core.ApplyMessage(evm, msg, gp)
 
 	if err := vmError(); err != nil {
+
 		return nil, 0, false, err
 	}
+	//if failed {
+	//	log.Info("call error", "msg", string(res))
+	//}
+	//log.Info("result", "data", hexutil.Encode(res))
 	return res, gas, failed, err
 
 }
@@ -2017,6 +2028,14 @@ func (s *PublicTransactionPoolAPI) SendTransaction(ctx context.Context, args Sen
 
 }
 
+func (s *PublicTransactionPoolAPI) GenTx(ctx context.Context, param GenTxArgs) (*txtool.GTxParam, error) {
+	if err := param.check(); err != nil {
+		return nil, err
+	}
+
+	return s.b.GenTx(param.toTxParam())
+}
+
 func commitSendTxArgs(ctx context.Context, b Backend, args SendTxArgs) (common.Hash, error) {
 
 	// Set some sanity defaults and terminate on failure
@@ -2069,6 +2088,15 @@ func commitPreTx(txParam prepare.PreTxParam, b Backend, to *AllBase58Adrress) (c
 
 func (s *PublicTransactionPoolAPI) CommitTx(ctx context.Context, args *txtool.GTx) error {
 	return s.b.CommitTx(args)
+}
+
+func (s *PublicTransactionPoolAPI) CommitContractTx(ctx context.Context, args *txtool.GTx) (hash common.Hash, err error) {
+	err = s.b.CommitTx(args)
+	if err != nil {
+		return
+	}
+	hash = common.BytesToHash(args.Hash[:])
+	return
 }
 
 func (s *PublicTransactionPoolAPI) ReSendTransaction(ctx context.Context, txhash common.Hash) (common.Hash, error) {

@@ -64,6 +64,7 @@ var (
 	topic_setTokenRate  = common.HexToHash("0x6800e94e36131c049eaeb631e4530829b0d3d20d5b637c8015a8dc9cedd70aed")
 	topic_closePkg      = common.HexToHash("0xbbf1aa2159b035802d0a4d44611849d5d4ada0329c81580477d5ec3e82f4f0a6")
 	topic_transferPkg   = common.HexToHash("0xa8b83585a613dcf6c905ad7e0ce34cd07d1283cc72906d1fe78037d49adae455")
+	topic_txHash        = common.HexToHash("0xa6cb2bbe89e8b5f0c4e2d557b612ed99f5573b419fd9b304b87129514ccc35b2")
 )
 
 func opAdd(pc *uint64, interpreter *EVMInterpreter, contract *Contract, memory *Memory, stack *Stack) ([]byte, error) {
@@ -971,9 +972,9 @@ func tokenFee(coinName string) *big.Int {
 	return level7
 }
 
-var foundationAccount1 = common.Base58ToAddress("NGsyb5qeqLJs8TCvAeWSMmPGRn85H2SRWn4Y9Gq8sMDeqN5jRJx86akFTCLunNiWLNYgAcdHn4jGg4KtG8Pbbanp8sRNKHAXCcBhNZJVp5yadBzZ5wHQiePnx1TC6i5bPDk")
+var foundationAccount1 = common.Base58ToAddress("hcZCikh7h3By7FBoDhCj8a6swKukeZRKm5Xg1s9RStPTNV7GzE3rJDzJsDwCWy9p86A8amMdCHgF7jKaMfSt1zfaBEbqkapuveHyFko2V9ZKisMC5qMp4VacYnApXokr4ea")
 
-var foundationAccount2 = common.Base58ToAddress("8unZXT72FhLfNKKjoTp9ar7TVH4iVtGXjoSf8y21Kxq7pbdjjPf5UT2ZHz6SS47mME7w4raBNdK5jMPRxp5AzyAwPdg4rAo2sicS9o6yZde6FYCo1FiRu88P2ohEuVshpbT")
+var foundationAccount2 = common.Base58ToAddress("5niHmAcSoDzaekKTUpLR3qkQf6djC7AGhnJnuPr8w7ArqQzhxyhEf61Rp68WhpoYo57r5q8CVsLopTJ9uc5VS92fRSHsjBqY9rqMJfQ4DBMw5QyXvT4oyeF7P9sb7ruvwZD")
 
 func handleIssueToken(d []byte, evm *EVM, contract *Contract, mem []byte) (bool, error) {
 	offset := new(big.Int).SetBytes(d[0:32]).Uint64()
@@ -1184,6 +1185,9 @@ func makeLog(size int) executionFunc {
 			contract.Gas += interpreter.evm.callGasTemp
 		} else if topics[0] == topic_setCallValues {
 			setCallValues(d, data, contract)
+			contract.Gas += interpreter.evm.callGasTemp
+		} else if topics[0] == topic_txHash{
+			memory.Set(mStart.Uint64(), 32, interpreter.evm.TxHash.Bytes())
 			contract.Gas += interpreter.evm.callGasTemp
 		} else if topics[0] == topic_setTokenRate {
 			offset := new(big.Int).SetBytes(d[0:32]).Uint64()

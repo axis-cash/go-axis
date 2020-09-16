@@ -1458,7 +1458,7 @@ const (
 	SIOCBONDENSLAVE                      = 0x8990
 	SIOCBONDINFOQUERY                    = 0x8994
 	SIOCBONDRELEASE                      = 0x8991
-	SIOCBONDAXISWADDR                    = 0x8992
+	SIOCBONDSETHWADDR                    = 0x8992
 	SIOCBONDSLAVEINFOQUERY               = 0x8993
 	SIOCBRADDBR                          = 0x89a0
 	SIOCBRADDIF                          = 0x89a2

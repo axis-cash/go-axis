@@ -158,6 +158,16 @@ var (
 		Usage: "Use for create chaindata snapshot",
 	}
 
+	TestStartBlockFlag = cli.Uint64Flag{
+		Name:  "testStartBlock",
+		Usage: "test from startBlock",
+	}
+
+	TestForkFlag = cli.BoolFlag{
+		Name:  "testFork",
+		Usage: "test fork start",
+	}
+
 	DeveloperPasswordFlag = cli.StringFlag{
 		Name:  "devpassword",
 		Usage: "devpassword to use create and unlock dev account",
@@ -314,6 +324,11 @@ var (
 		Usage: "big int return value as number string",
 	}
 
+	StakeFlag = cli.BoolFlag{
+		Name:  "stake",
+		Usage: "start stake",
+	}
+
 	AutoMergeFlag = cli.BoolFlag{
 		Name:  "autoMerge",
 		Usage: "autoMerge outs",
@@ -332,6 +347,11 @@ var (
 	ResetBlockNumber = cli.Uint64Flag{
 		Name:  "resetBlockNumber",
 		Usage: "reset currentblock, gcmode must be archive",
+	}
+
+	RecordBlockShareNumber = cli.BoolFlag{
+		Name:  "recordBlockShareNumber",
+		Usage: "",
 	}
 
 	// Miner settings
@@ -898,7 +918,7 @@ func MakeAddress(ks *keystore.KeyStore, account string) (accounts.Account, error
 		return accounts.Account{}, fmt.Errorf("invalid account address or index %q", account)
 	}
 	log.Warn("-------------------------------------------------------------------")
-	log.Warn("Referring to accounts by order in the keystore folder is dangerous!")
+	log.Warn("Referring to accounts by order in the keystore folder is dangaxisus!")
 	log.Warn("This functionality is deprecated and will be removed in the future!")
 	log.Warn("Please use explicit addresses! (can search via `gaxis account list`)")
 	log.Warn("-------------------------------------------------------------------")
@@ -1001,6 +1021,10 @@ func SetP2PConfig(ctx *cli.Context, cfg *p2p.Config) {
 		}
 	}
 
+	if ctx.GlobalIsSet(RecordBlockShareNumber.Name) {
+		zconfig.Init_RecordShareNum()
+	}
+
 	if ctx.GlobalIsSet(ResetBlockNumber.Name) {
 		blockNumber := ctx.GlobalUint64(ResetBlockNumber.Name)
 		axisparam.InitCurrentBlockNumber(blockNumber)
@@ -1042,6 +1066,19 @@ func SetNodeConfig(ctx *cli.Context, cfg *node.Config) {
 
 	if ctx.GlobalIsSet(KeyStoreDirFlag.Name) {
 		cfg.KeyStoreDir = ctx.GlobalString(KeyStoreDirFlag.Name)
+	}
+	if ctx.GlobalIsSet(TestForkFlag.Name) {
+		zconfig.Init_TestFork()
+		if ctx.GlobalIsSet(TestStartBlockFlag.Name) {
+			testFrokStartBlock := ctx.GlobalUint64(TestStartBlockFlag.Name)
+			if testFrokStartBlock == 0 {
+				panic("testFrokStartBlock must great 100")
+			}
+			zconfig.Init_TestForkStartBlock(testFrokStartBlock)
+		} else {
+			panic("must set testFrokStartBlock")
+		}
+
 	}
 }
 
@@ -1243,9 +1280,15 @@ func SetAxisConfig(ctx *cli.Context, stack *node.Node, cfg *axis.Config) {
 		axisparam.InitExchangeValueStr(true)
 	}
 
+	if ctx.GlobalIsSet(StakeFlag.Name) {
+		cfg.StartStake = true
+	}
+
 	if ctx.GlobalIsSet(LightNodeFlag.Name) {
 		cfg.StartLight = true
 	}
+
+
 
 	// Override any default configs for hard coded networks.
 	switch {
@@ -1264,6 +1307,47 @@ func SetAxisConfig(ctx *cli.Context, stack *node.Node, cfg *axis.Config) {
 	// TODO(fjl): move trie cache generations into config
 	if gen := ctx.GlobalInt(TrieCacheGenFlag.Name); gen > 0 {
 		state.MaxTrieCacheGen = uint16(gen)
+	}
+}
+
+// CheckExclusive verifies that only a single instance of the provided flags was
+// set by the user. Each flag might optionally be followed by a string type to
+// specialize it further.
+func CheckExclusive(ctx *cli.Context, args ...interface{}) {
+	set := make([]string, 0, 1)
+	for i := 0; i < len(args); i++ {
+		// Make sure the next argument is a flag and skip if not set
+		flag, ok := args[i].(cli.Flag)
+		if !ok {
+			panic(fmt.Sprintf("invalid argument, not cli.Flag type: %T", args[i]))
+		}
+		// Check if next arg extends current and expand its name if so
+		name := flag.GetName()
+
+		if i+1 < len(args) {
+			switch option := args[i+1].(type) {
+			case string:
+				// Extended flag check, make sure value set doesn't conflict with passed in option
+				if ctx.GlobalString(flag.GetName()) == option {
+					name += "=" + option
+					set = append(set, "--"+name)
+				}
+				// shift arguments and continue
+				i++
+				continue
+
+			case cli.Flag:
+			default:
+				panic(fmt.Sprintf("invalid argument, not cli.Flag or string extension: %T", args[i+1]))
+			}
+		}
+		// Mark the flag if it's set
+		if ctx.GlobalIsSet(flag.GetName()) {
+			set = append(set, "--"+name)
+		}
+	}
+	if len(set) > 1 {
+		Fatalf("Flags %v can't be used at the same time", strings.Join(set, ", "))
 	}
 }
 

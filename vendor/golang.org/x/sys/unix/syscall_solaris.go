@@ -658,7 +658,7 @@ func Poll(fds []PollFd, timeout int) (n int, err error) {
 //sysnb	Setegid(egid int) (err error)
 //sysnb	Seteuid(euid int) (err error)
 //sysnb	Setgid(gid int) (err error)
-//sys	Axisostname(p []byte) (err error)
+//sys	Sethostname(p []byte) (err error)
 //sysnb	Setpgid(pid int, pgid int) (err error)
 //sys	Setpriority(which int, who int, prio int) (err error)
 //sysnb	Setregid(rgid int, egid int) (err error)

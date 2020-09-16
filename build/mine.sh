@@ -4,7 +4,7 @@
 #   sudo yum install lsof
 
 ################################################################
-GEROCFG=~/.gerocfg
+GAXISCFG=~/.gaxiscfg
 DEFAULT_DATADIR=~/.datadir
 PATTERN_ATTACH_PROCESS="gaxis.*attach"
 PATTERN_MAIN_PROCESS=".*gaxis.*datadir.*port.*"
@@ -30,9 +30,9 @@ loadDefaultParams() {
    if [ ! -d "$DEFAULT_DATADIR" ]; then
        mkdir -p ~/.datadir
    fi
-   echo "export DATADIR=~/.datadir"	> $GEROCFG
-   echo "export SERVERPORT=60601" >> $GEROCFG 
-   echo "export RPCPORT=8545" >> $GEROCFG 
+   echo "export DATADIR=~/.datadir"	> $GAXISCFG
+   echo "export SERVERPORT=60601" >> $GAXISCFG 
+   echo "export RPCPORT=8545" >> $GAXISCFG 
 }
 killProcess() {
     if [[ -z $1  ]]; then
@@ -48,7 +48,7 @@ killProcess() {
 
 }
 readCfg()  { 
-    . ~/.gerocfg
+    . ~/.gaxiscfg
     . ~/.bash_profile
 }
 	
@@ -119,7 +119,7 @@ verifyServerPort(){
     if [ $portToCheck != $1 ]; then
         echo "find port:$portToCheck for $2 can be used"
         set -o xtrace
-        sed -i -e "s/${portName}=$1/${portName}=$portToCheck/g" ~/.gerocfg
+        sed -i -e "s/${portName}=$1/${portName}=$portToCheck/g" ~/.gaxiscfg
         set +x
         export ${portName}=${portToCheck}
     fi
@@ -294,13 +294,13 @@ getAccount() {
 
 pkill cat &
 killProcess ${PATTERN_ATTACH_PROCESS}
-if [ -f ${GEROCFG} ]; then
-    readCfg ${GEROCFG}
+if [ -f ${GAXISCFG} ]; then
+    readCfg ${GAXISCFG}
 else
-	touch $GEROCFG
-	chmod 755 ${GEROCFG}
+	touch $GAXISCFG
+	chmod 755 ${GAXISCFG}
 	loadDefaultParams
-    readCfg ${GEROCFG}
+    readCfg ${GAXISCFG}
     echo "default parameters loaded"
 fi
 OLDDATADIR=${DATADIR}

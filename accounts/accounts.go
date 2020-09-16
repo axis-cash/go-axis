@@ -20,7 +20,6 @@ package accounts
 import (
 	"github.com/axis-cash/go-axis-import/c_type"
 	"github.com/axis-cash/go-axis-import/superzk"
-	"github.com/axis-cash/go-axis"
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/common/address"
 	"github.com/axis-cash/go-axis/event"
@@ -122,7 +121,6 @@ type Wallet interface {
 	//
 	// You can disable automatic account discovery by calling SelfDerive with a nil
 	// chain state reader.
-	SelfDerive(base DerivationPath, chain axis.ChainStateReader)
 
 	// IsMine return whether an once address is mine or not
 	IsMine(pkr c_type.PKr) bool

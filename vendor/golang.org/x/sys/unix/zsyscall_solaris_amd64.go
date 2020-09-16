@@ -98,7 +98,7 @@ import (
 //go:cgo_import_dynamic libc_setegid setegid "libc.so"
 //go:cgo_import_dynamic libc_seteuid seteuid "libc.so"
 //go:cgo_import_dynamic libc_setgid setgid "libc.so"
-//go:cgo_import_dynamic libc_axisostname axisostname "libc.so"
+//go:cgo_import_dynamic libc_sethostname sethostname "libc.so"
 //go:cgo_import_dynamic libc_setpgid setpgid "libc.so"
 //go:cgo_import_dynamic libc_setpriority setpriority "libc.so"
 //go:cgo_import_dynamic libc_setregid setregid "libc.so"
@@ -223,7 +223,7 @@ import (
 //go:linkname procSetegid libc_setegid
 //go:linkname procSeteuid libc_seteuid
 //go:linkname procSetgid libc_setgid
-//go:linkname procAxisostname libc_axisostname
+//go:linkname procSethostname libc_sethostname
 //go:linkname procSetpgid libc_setpgid
 //go:linkname procSetpriority libc_setpriority
 //go:linkname procSetregid libc_setregid
@@ -349,7 +349,7 @@ var (
 	procSetegid,
 	procSeteuid,
 	procSetgid,
-	procAxisostname,
+	procSethostname,
 	procSetpgid,
 	procSetpriority,
 	procSetregid,
@@ -1288,12 +1288,12 @@ func Setgid(gid int) (err error) {
 	return
 }
 
-func Axisostname(p []byte) (err error) {
+func Sethostname(p []byte) (err error) {
 	var _p0 *byte
 	if len(p) > 0 {
 		_p0 = &p[0]
 	}
-	_, _, e1 := sysvicall6(uintptr(unsafe.Pointer(&procAxisostname)), 2, uintptr(unsafe.Pointer(_p0)), uintptr(len(p)), 0, 0, 0, 0)
+	_, _, e1 := sysvicall6(uintptr(unsafe.Pointer(&procSethostname)), 2, uintptr(unsafe.Pointer(_p0)), uintptr(len(p)), 0, 0, 0, 0)
 	if e1 != 0 {
 		err = e1
 	}

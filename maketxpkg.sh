@@ -44,42 +44,42 @@ fi
 
 for os in ${os_version[@]}
     do
-      echo "make gerotx-${os}"
-      make "gerotx-"${os}
-      rm -rf $BUILD_PATH/gerotxpkg/bin
-      rm -rf $BUILD_PATH/gerotxpkg/czero
-      mkdir -p $BUILD_PATH/gerotxpkg/bin
-      mkdir -p $BUILD_PATH/gerotxpkg/czero/data/
-      mkdir -p $BUILD_PATH/gerotxpkg/czero/include/
-      mkdir -p $BUILD_PATH/gerotxpkg/czero/lib/
-      cp -rf $CZERO_PATH/czero/data/* $AXIS_PATH/build/gerotxpkg/czero/data/
-      cp -rf $CZERO_PATH/czero/include/* $AXIS_PATH/build/gerotxpkg/czero/include/
+      echo "make gaxistx-${os}"
+      make "gaxistx-"${os}
+      rm -rf $BUILD_PATH/gaxistxpkg/bin
+      rm -rf $BUILD_PATH/gaxistxpkg/czero
+      mkdir -p $BUILD_PATH/gaxistxpkg/bin
+      mkdir -p $BUILD_PATH/gaxistxpkg/czero/data/
+      mkdir -p $BUILD_PATH/gaxistxpkg/czero/include/
+      mkdir -p $BUILD_PATH/gaxistxpkg/czero/lib/
+      cp -rf $CZERO_PATH/czero/data/* $AXIS_PATH/build/gaxistxpkg/czero/data/
+      cp -rf $CZERO_PATH/czero/include/* $AXIS_PATH/build/gaxistxpkg/czero/include/
       if [ $os == "windows-amd64" ];then
-        mv $BUILD_PATH/bin/gerotx*.exe $BUILD_PATH/gerotxpkg/bin/tx.exe
-        cp -rf  $CZERO_PATH/czero/lib_WINDOWS_AMD64/* $AXIS_PATH/build/gerotxpkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxistx*.exe $BUILD_PATH/gaxistxpkg/bin/tx.exe
+        cp -rf  $CZERO_PATH/czero/lib_WINDOWS_AMD64/* $AXIS_PATH/build/gaxistxpkg/czero/lib/
       elif [ $os == "linux-amd64-v3" ];then
-        mv $BUILD_PATH/bin/gerotx-v3* $BUILD_PATH/gerotxpkg/bin/tx
-        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V3/* $AXIS_PATH/build/gerotxpkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxistx-v3* $BUILD_PATH/gaxistxpkg/bin/tx
+        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V3/* $AXIS_PATH/build/gaxistxpkg/czero/lib/
       elif [ $os == "linux-amd64-v4" ];then
-        mv $BUILD_PATH/bin/gerotx-v4* $BUILD_PATH/gerotxpkg/bin/tx
-        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V4/* $AXIS_PATH/build/gerotxpkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxistx-v4* $BUILD_PATH/gaxistxpkg/bin/tx
+        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V4/* $AXIS_PATH/build/gaxistxpkg/czero/lib/
       else
-        mv $BUILD_PATH/bin/gerotx-darwin* $BUILD_PATH/gerotxpkg/bin/tx
-        cp -rf  $CZERO_PATH/czero/lib_DARWIN_AMD64/* $AXIS_PATH/build/gerotxpkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxistx-darwin* $BUILD_PATH/gaxistxpkg/bin/tx
+        cp -rf  $CZERO_PATH/czero/lib_DARWIN_AMD64/* $AXIS_PATH/build/gaxistxpkg/czero/lib/
       fi
       cd $BUILD_PATH
 
       if [ $os == "windows-amd64" ];then
-        rm -rf ./gerotx-*-$os.zip
-        zip -r gerotx-$version-$os.zip gerotxpkg/*
+        rm -rf ./gaxistx-*-$os.zip
+        zip -r gaxistx-$version-$os.zip gaxistxpkg/*
       else
-         rm -rf ./gerotx-*-$os.tar.gz
-         tar czvf gerotx-$version-$os.tar.gz gerotxpkg/*
+         rm -rf ./gaxistx-*-$os.tar.gz
+         tar czvf gaxistx-$version-$os.tar.gz gaxistxpkg/*
       fi
 
       cd $LOCAL_PATH
 
     done
-rm -rf $BUILD_PATH/gerotxpkg/bin
-rm -rf $BUILD_PATH/gerotxpkg/czero
+rm -rf $BUILD_PATH/gaxistxpkg/bin
+rm -rf $BUILD_PATH/gaxistxpkg/czero
 

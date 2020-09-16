@@ -27,7 +27,7 @@ if "%k%" neq "" (
 )
 
 
-start /b bin\gaxis.exe --config geroConfig.toml --exchange --mineMode %DATADIR% %KEYSTORE% %VOTER% %VOTER_PASSWORD_PATH%
+start /b bin\gaxis.exe --config gaxisConfig.toml --exchange --mineMode %DATADIR% %KEYSTORE% %VOTER% %VOTER_PASSWORD_PATH%
 
 pause
 

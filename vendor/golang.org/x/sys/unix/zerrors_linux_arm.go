@@ -1252,7 +1252,7 @@ const (
 	PTRACE_SEIZE                         = 0x4206
 	PTRACE_SETCRUNCHREGS                 = 0x1a
 	PTRACE_SETFPREGS                     = 0xf
-	PTRACE_AXISBPREGS                    = 0x1e
+	PTRACE_SETHBPREGS                    = 0x1e
 	PTRACE_SETOPTIONS                    = 0x4200
 	PTRACE_SETREGS                       = 0xd
 	PTRACE_SETREGSET                     = 0x4205
@@ -1462,7 +1462,7 @@ const (
 	SIOCBONDENSLAVE                      = 0x8990
 	SIOCBONDINFOQUERY                    = 0x8994
 	SIOCBONDRELEASE                      = 0x8991
-	SIOCBONDAXISWADDR                    = 0x8992
+	SIOCBONDSETHWADDR                    = 0x8992
 	SIOCBONDSLAVEINFOQUERY               = 0x8993
 	SIOCBRADDBR                          = 0x89a0
 	SIOCBRADDIF                          = 0x89a2

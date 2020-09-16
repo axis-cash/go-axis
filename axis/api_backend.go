@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"math/big"
+	"time"
 
 	"github.com/axis-cash/go-axis/zero/txtool/flight"
 
@@ -264,11 +265,20 @@ func (b *AxisAPIBackend) GetAnchor(roots []c_type.Uint256) ([]txtool.Witness, er
 
 }
 func (b *AxisAPIBackend) CommitTx(tx *txtool.GTx) error {
+
+	difference := time.Now().Unix() - b.CurrentBlock().Time().Int64()
+	if difference > 10*60 {
+		return errors.New("The current chain is too behind")
+	}
 	gasPrice := big.Int(tx.GasPrice)
 	gas := uint64(tx.Gas)
 	signedTx := types.NewTxWithGTx(gas, &gasPrice, &tx.Tx)
 	log.Info("commitTx", "txhash", signedTx.Hash().String())
-	return b.axis.txPool.AddLocal(signedTx)
+	err := b.axis.txPool.AddLocal(signedTx)
+	if err != nil {
+		log.Info("commitTx", "txHash", signedTx.Hash().String(), "err", err)
+	}
+	return err
 }
 
 func (b *AxisAPIBackend) GetPkNumber(pk c_type.Uint512) (number uint64, e error) {

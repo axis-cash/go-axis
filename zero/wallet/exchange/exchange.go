@@ -18,22 +18,22 @@ import (
 	"github.com/axis-cash/go-axis/zero/txtool"
 	"github.com/axis-cash/go-axis/zero/txtool/flight"
 	"github.com/axis-cash/go-axis/zero/txtool/prepare"
+	"github.com/axis-cash/go-axis-import/axisparam"
 
 	"github.com/axis-cash/go-axis/common/hexutil"
 
-	"github.com/axis-cash/go-axis-import/axisparam"
+	"github.com/robfig/cron"
 	"github.com/axis-cash/go-axis-import/c_type"
 	"github.com/axis-cash/go-axis/accounts"
-	"github.com/axis-cash/go-axis/axisdb"
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/core"
 	"github.com/axis-cash/go-axis/core/types"
 	"github.com/axis-cash/go-axis/event"
 	"github.com/axis-cash/go-axis/log"
 	"github.com/axis-cash/go-axis/rlp"
+	"github.com/axis-cash/go-axis/axisdb"
 	"github.com/axis-cash/go-axis/zero/txs/assets"
 	"github.com/axis-cash/go-axis/zero/utils"
-	"github.com/robfig/cron"
 )
 
 type Account struct {
@@ -724,6 +724,8 @@ func (self *Exchange) iteratorUtxo(Pk *c_type.Uint512, begin, end uint64, handle
 	return
 }
 
+var ignorePKr = common.Base58ToAddress("i3zesDa26i7jAtkR2fBYBeZsoQ7NAJxQNCsbgwvaWap3HVDGmvzsQSLqTZRyadswzBoC4edWYJzejyY6AXVhGkcqFYVvVPH1w5vHfvbazp1ReQ5Wa9qi15UPAwztrxe9oJQ").ToPKr()
+
 func (self *Exchange) getUtxo(root c_type.Uint256) (utxo Utxo, e error) {
 	data, err := self.db.Get(rootKey(root))
 	if err != nil {
@@ -733,6 +735,10 @@ func (self *Exchange) getUtxo(root c_type.Uint256) (utxo Utxo, e error) {
 		log.Error("Exchange Invalid utxo RLP", "root", common.Bytes2Hex(root[:]), "err", err)
 		e = err
 		return
+	}
+
+	if utxo.Pkr == *ignorePKr {
+		utxo.Ignore = true
 	}
 
 	if value, ok := self.usedFlag.Load(utxo.Root); ok {
@@ -1178,9 +1184,12 @@ type MergeUtxos struct {
 
 var default_fee_value = new(big.Int).Mul(big.NewInt(25000), big.NewInt(1000000000))
 
-func (self *Exchange) getMergeUtxos(from *c_type.Uint512, currency string, zcount int, left int) (mu MergeUtxos, e error) {
+func (self *Exchange) getMergeUtxos(from *c_type.Uint512, currency string, zcount int, left int, icount int) (mu MergeUtxos, e error) {
 	if zcount > 400 {
 		e = errors.New("zout count must <= 400")
+	}
+	if icount <= 0 {
+		icount = 1000
 	}
 	ck := assets.NewCKState(true, &assets.Token{utils.CurrencyToUint256("AXIS"), utils.U256(*default_fee_value)})
 	prefix := utxoPkKey(*from, common.LeftPadBytes([]byte(currency), 32), nil)
@@ -1205,11 +1214,14 @@ func (self *Exchange) getMergeUtxos(from *c_type.Uint512, currency string, zcoun
 
 			}
 		}
-		if zutxos.Len() >= zcount+left || outxos.Len() >= 2400+left {
+		if zutxos.Len() >= zcount+left {
+			break
+		}
+		if outxos.Len()+zutxos.Len() >= icount+left {
 			break
 		}
 	}
-	if outxos.Len() >= 2400 {
+	if outxos.Len() >= icount {
 		zutxos = UtxoList{}
 	}
 	mu.ocount = outxos.Len()
@@ -1242,6 +1254,7 @@ type MergeParam struct {
 	Currency string
 	Zcount   uint64
 	Left     uint64
+	Icount   uint64
 }
 
 func (self *Exchange) GenMergeTx(mp *MergeParam) (txParam *txtool.GTxParam, e error) {
@@ -1254,7 +1267,7 @@ func (self *Exchange) GenMergeTx(mp *MergeParam) (txParam *txtool.GTxParam, e er
 		mp.To = account.wallet.Accounts()[0].GetDefaultPkr(1).NewRef()
 	}
 	var mu MergeUtxos
-	if mu, e = self.getMergeUtxos(account.pk, mp.Currency, int(mp.Zcount), int(mp.Left)); e != nil {
+	if mu, e = self.getMergeUtxos(account.pk, mp.Currency, int(mp.Zcount), int(mp.Left), int(mp.Icount)); e != nil {
 		return
 	}
 
@@ -1327,7 +1340,7 @@ func (self *Exchange) Merge(pk *c_type.Uint512, currency string, force bool) (co
 	}
 
 	var mu MergeUtxos
-	if mu, e = self.getMergeUtxos(account.pk, currency, 100, 50); e != nil {
+	if mu, e = self.getMergeUtxos(account.pk, currency, 100, 50, 0); e != nil {
 		return
 	}
 

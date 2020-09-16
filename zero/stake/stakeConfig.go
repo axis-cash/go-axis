@@ -3,6 +3,8 @@ package stake
 import (
 	"math/big"
 
+	"github.com/axis-cash/go-axis/zero/zconfig"
+
 	"github.com/axis-cash/go-axis-import/axisparam"
 )
 
@@ -44,9 +46,13 @@ const (
 )
 
 func getMinSharePoolSize() uint32 {
+	if zconfig.IsTestFork() {
+		return 10000000
+	}
 	if axisparam.Is_Dev() {
 		return 20
 	}
+
 	return minSharePoolSize
 }
 

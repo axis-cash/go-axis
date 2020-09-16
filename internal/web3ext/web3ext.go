@@ -481,6 +481,11 @@ web3._extend({
             call: 'axis_unPack',	
 			params: 3
 		}),
+       new web3._extend.Method({
+			name: 'getShortAddress',
+            call: 'axis_getShortAddress',	
+			params: 1
+		}),
 	],
 	properties: [
 		new web3._extend.Property({
@@ -913,8 +918,19 @@ web3._extend({
 			params:3,
             inputFormatter: [null,web3._extend.utils.toHex,web3._extend.utils.toHex],
             outputFormatter: web3._extend.formatters.outputStakeInfoFormatter
+		}),
+		new web3._extend.Method({
+			name: 'getShareByPkrV2',
+			call: 'stake_getShareByPkrV2',
+			params:1,
+            outputFormatter: web3._extend.formatters.outputStakeShareFormatter
+		}),
+		new web3._extend.Method({
+			name: 'myShareV2',
+			call: 'stake_myShareV2',
+			params:1,
+            outputFormatter: web3._extend.formatters.outputStakeShareFormatter
 		})
-
 	],
     properties: [
        new web3._extend.Property({
@@ -939,6 +955,11 @@ web3._extend({
 			name: 'getOutsByPKr',
 			call: 'light_getOutsByPKr',
 			params: 3
+		}),
+        new web3._extend.Method({
+			name: 'getPendingOuts',
+			call: 'light_getPendingOuts',
+			params: 1
 		}),
 		new web3._extend.Method({
 			name: 'checkNil',

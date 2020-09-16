@@ -22,6 +22,8 @@ import (
 	"math/big"
 
 	axis "github.com/axis-cash/go-axis"
+	"github.com/axis-cash/go-axis/zero/txtool"
+
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/core/types"
 )
@@ -80,8 +82,10 @@ type ContractTransactor interface {
 	// transactions may be added or removed by miners, but it should provide a basis
 	// for setting a reasonable default.
 	EstimateGas(ctx context.Context, call axis.CallMsg) (gas uint64, err error)
-	// SendTransaction injects the transaction into the pending pool for execution.
-	SendTransaction(ctx context.Context, tx *types.Transaction) error
+
+	GenContractTx(ctx context.Context, msg axis.CallMsg) (*txtool.GTxParam, error)
+
+	CommitTx(ctx context.Context, arg *txtool.GTx) error
 }
 
 // ContractFilterer defines the methods needed to access log events using one-off

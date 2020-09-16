@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir -p /log
 current=`date "+%Y-%m-%d"`
-logName="gero_$current.log"
+logName="gaxis_$current.log"
 
-/gaxis --config /usr/local/bin/geroConfig.toml --datadir /root/.axis  --rpccorsdomain "*" --confirmedBlock 32 --rpcwritetimeout 1800 --exchangeValueStr --port 33896 --rpc --rpcaddr "0.0.0.0" -rpcapi "axis,net,exchange,stake" --rpcport 8545 --exchange --mineMode  $@ 2>> /log/${logName}
+/gaxis --config /usr/local/bin/gaxisConfig.toml --datadir /root/.axis  --rpccorsdomain "*" --confirmedBlock 32 --rpcwritetimeout 1800 --exchangeValueStr --port 33896 --rpc --rpcaddr "0.0.0.0" -rpcapi "axis,net,exchange,stake" --rpcport 8545 --exchange --mineMode  $@ 2>> /log/${logName}

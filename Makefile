@@ -91,22 +91,22 @@ gaxis-windows-amd64:
 	@echo "Windows amd64 cross compilation done:"
 	@ls -ld $(GOBIN)/gaxis-windows-* | grep amd64
 
-gerotx-darwin-amd64:
-	build/env.sh darwin-amd64 go run build/ci.go xgo -- --go=$(GO) --out=gerotx  --targets=darwin/amd64 -v ./cmd/tx
+gaxistx-darwin-amd64:
+	build/env.sh darwin-amd64 go run build/ci.go xgo -- --go=$(GO) --out=gaxistx  --targets=darwin/amd64 -v ./cmd/tx
 	@echo "Darwin amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/gerotx-darwin-* | grep amd64
+	@ls -ld $(GOBIN)/gaxistx-darwin-* | grep amd64
 
-gerotx-linux-amd64-v3:
-	build/env.sh linux-v3 go run build/ci.go xgo -- --go=$(GO) --out=gerotx-v3 --targets=linux/amd64 -v ./cmd/tx
+gaxistx-linux-amd64-v3:
+	build/env.sh linux-v3 go run build/ci.go xgo -- --go=$(GO) --out=gaxistx-v3 --targets=linux/amd64 -v ./cmd/tx
 	@echo "Linux centos amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/gerotx-v3-linux-* | grep amd64
+	@ls -ld $(GOBIN)/gaxistx-v3-linux-* | grep amd64
 
-gerotx-linux-amd64-v4:
-	build/env.sh linux-v4 go run build/ci.go xgo -- --go=$(GO) --out=gerotx-v4 --targets=linux/amd64 -v ./cmd/tx
+gaxistx-linux-amd64-v4:
+	build/env.sh linux-v4 go run build/ci.go xgo -- --go=$(GO) --out=gaxistx-v4 --targets=linux/amd64 -v ./cmd/tx
 	@echo "Linux  ubuntu amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/gerotx-v4-linux-* | grep amd64
+	@ls -ld $(GOBIN)/gaxistx-v4-linux-* | grep amd64
 
-gerotx-windows-amd64:
-	build/env.sh windows-amd64 go run build/ci.go xgo -- --go=$(GO) --out=gerotx --targets=windows/amd64 -v ./cmd/tx
+gaxistx-windows-amd64:
+	build/env.sh windows-amd64 go run build/ci.go xgo -- --go=$(GO) --out=gaxistx --targets=windows/amd64 -v ./cmd/tx
 	@echo "Windows amd64 cross compilation done:"
-	@ls -ld $(GOBIN)/gerotx-windows-* | grep amd64
+	@ls -ld $(GOBIN)/gaxistx-windows-* | grep amd64

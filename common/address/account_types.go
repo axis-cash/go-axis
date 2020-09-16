@@ -19,9 +19,10 @@ package address
 import (
 	"encoding/hex"
 	"errors"
-	"github.com/btcsuite/btcutil/base58"
 	"regexp"
 	"strings"
+
+	"github.com/btcsuite/btcutil/base58"
 
 	"github.com/axis-cash/go-axis-import/c_type"
 	"github.com/axis-cash/go-axis-import/superzk"

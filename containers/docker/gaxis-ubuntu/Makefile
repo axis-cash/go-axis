@@ -1,12 +1,12 @@
-#please read rungero.docker script,you can add startup params
+#please read rungaxis.docker script,you can add startup params
 #when you start gaxis with docker please add -v save the data to the chain data
 
 build:
 	docker build -t axis/client-go:v1.0.0-rc6 .
 
 rpc:
-	mkdir -p ~/geroData/log
-	docker run --name gaxis -v ~/geroData:/root/.axis -v ~/geroData/log:/log -d -p 8545:8545 axis/client-go:v1.0.0-rc6
+	mkdir -p ~/gaxisData/log
+	docker run --name gaxis -v ~/gaxisData:/root/.axis -v ~/gaxisData/log:/log -d -p 8545:8545 axis/client-go:v1.0.0-rc6
 
 kill:
 	docker rm -f gaxis

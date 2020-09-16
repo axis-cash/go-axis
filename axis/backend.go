@@ -26,6 +26,8 @@ import (
 	"sync"
 	"sync/atomic"
 
+	"github.com/axis-cash/go-axis/zero/wallet/stakeservice"
+
 	"github.com/axis-cash/go-axis-import/c_type"
 
 	"github.com/axis-cash/go-axis-import/superzk"
@@ -33,8 +35,6 @@ import (
 	"github.com/axis-cash/go-axis/common/address"
 
 	"github.com/axis-cash/go-axis/voter"
-	"github.com/axis-cash/go-axis/zero/wallet/stakeservice"
-
 	"github.com/axis-cash/go-axis/zero/txtool"
 	"github.com/axis-cash/go-axis/zero/zconfig"
 
@@ -180,6 +180,9 @@ func New(ctx *node.ServiceContext, config *Config) (*Axis, error) {
 	// if config.TxPool.Journal != "" {
 	//	config.TxPool.Journal = ctx.ResolvePath(config.TxPool.Journal)
 	// }
+
+	config.TxPool.StartLight = config.StartLight
+
 	axis.txPool = core.NewTxPool(config.TxPool, axis.chainConfig, axis.blockchain)
 
 	axis.voter = voter.NewVoter(axis.chainConfig, axis.blockchain, axis)
@@ -204,7 +207,9 @@ func New(ctx *node.ServiceContext, config *Config) (*Axis, error) {
 		axis.exchange = exchange.NewExchange(zconfig.Exchange_dir(), axis.txPool, axis.accountManager, config.AutoMerge)
 	}
 
-	stakeservice.NewStakeService(zconfig.Stake_dir(), axis.blockchain, axis.accountManager)
+	if config.StartStake {
+		stakeservice.NewStakeService(zconfig.Stake_dir(), axis.blockchain, axis.accountManager)
+	}
 
 	// init light
 	if config.StartLight {

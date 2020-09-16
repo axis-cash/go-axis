@@ -582,10 +582,12 @@ func (env *Work) commitTransactions(mux *event.TypeMux, txs *types.TransactionsB
 			break
 		}
 
-		if env.header.Number.Uint64() == axisparam.XIP6() {
-			txs.Shift()
-			env.errHandledTxs = append(env.errHandledTxs, tx)
-			continue
+		if true && (!axisparam.Is_Dev()) {
+			if env.header.Number.Uint64() == axisparam.XIP8() {
+				txs.Shift()
+				env.errHandledTxs = append(env.errHandledTxs, tx)
+				continue
+			}
 		}
 
 		// Start executing the transaction
@@ -597,6 +599,7 @@ func (env *Work) commitTransactions(mux *event.TypeMux, txs *types.TransactionsB
 			// Pop the current out-of-gas transaction without shifting in the next from the account
 			log.Trace("Gas limit exceeded for current block", "sender", tx.From())
 			txs.Pop()
+			break;
 
 		case nil:
 			// Everything ok, collect the logs and shift in the next transaction from the same account

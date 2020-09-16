@@ -44,23 +44,23 @@ cd ${START_PATH}/package
 mkdir -p czero
 mkdir -p bin
 cp -rf ${START_PATH}/bin/* ./bin/
-mv  ./bin/gaxis ./bin/_gero
+mv  ./bin/gaxis ./bin/_gaxis
 cp -rf ${SOURCE_PATH}/go-axis-import/czero/* ./czero/
 #cat > ${START_PATH}/package/gaxis << EOL
 ##!/bin/bash
 #cd "$(dirname $BASH_SOURCE)"
 #CUR_PATH=`pwd`
 #export DYLD_LIBRARY_PATH=${CUR_PATH}/czero/lib
-#${CUR_PATH}/bin/_gero $1
+#${CUR_PATH}/bin/_gaxis $1
 #EOL
 cat "" > ${START_PATH}/package/gaxis 
 echo '#!/bin/bash' >>${START_PATH}/package/gaxis  
 echo 'cd "$(dirname $BASH_SOURCE)"' >>${START_PATH}/package/gaxis  
 echo 'CUR_PATH=`pwd`' >>${START_PATH}/package/gaxis  
 echo 'export DYLD_LIBRARY_PATH=${CUR_PATH}/czero/lib' >>${START_PATH}/package/gaxis  
-echo '${CUR_PATH}/bin/_gero $1' >>${START_PATH}/package/gaxis  
+echo '${CUR_PATH}/bin/_gaxis $1' >>${START_PATH}/package/gaxis  
 chmod -R 755 *
 cd ${START_PATH}
 cd ${START_PATH}/tmp
-hdiutil create ${START_PATH}/tmp.dmg -ov -volname "Gero_Mac_Instl" -fs HFS+ -srcfolder "${START_PATH}/package"
-hdiutil convert ${START_PATH}/tmp.dmg -format UDZO -o Gero_Mac_Instl.dmg
+hdiutil create ${START_PATH}/tmp.dmg -ov -volname "Gaxis_Mac_Instl" -fs HFS+ -srcfolder "${START_PATH}/package"
+hdiutil convert ${START_PATH}/tmp.dmg -format UDZO -o Gaxis_Mac_Instl.dmg

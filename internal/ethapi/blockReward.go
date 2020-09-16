@@ -136,7 +136,6 @@ func accumulateRewardsV4(number, bdiff *big.Int) [2]*big.Int {
 	return res
 
 }
-
 func accumulateRewardsV5(number, bdiff *big.Int) [2]*big.Int {
 	var res [2]*big.Int
 	diff := new(big.Int).Div(bdiff, big.NewInt(1000000000))
@@ -147,13 +146,14 @@ func accumulateRewardsV5(number, bdiff *big.Int) [2]*big.Int {
 	} else if reward.Cmp(hRewardV4) > 0 {
 		reward = new(big.Int).Set(hRewardV4)
 	}
-	reward.Div(reward, big.NewInt(2))
+
 	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(number, halveNimber), interval), big1)
-	reward.Div(reward, new(big.Int).Exp(big2, i, nil))
+	reward.Div(reward, new(big.Int).Exp(big2, new(big.Int).Add(i, big1), nil))
 
 	res[0] = reward
 	res[1] = big.NewInt(0)
 	return res
+
 }
 
 /**

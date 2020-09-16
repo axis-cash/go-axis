@@ -6,7 +6,7 @@ export LD_LIBRARY_PATH="./czero/lib/"
 DEFAULT_DATD_DIR="./data"
 LOGDIR="./log"
 DEFAULT_PORT=33896
-CONFIG_PATH="./geroConfig.toml"
+CONFIG_PATH="./gaxisConfig.toml"
 DATADIR_OPTION=${DEFAULT_DATD_DIR}
 NET_OPTION=""
 RPC_OPTION=""
@@ -36,6 +36,6 @@ mkdir -p $LOGDIR
 
 echo $cmd
 current=`date "+%Y-%m-%d"`
-logName="gero_$current.log"
+logName="gaxis_$current.log"
 sh stop.sh
 nohup ${cmd} >> "${LOGDIR}/${logName}" 2>&1 & echo $! > "./pid"

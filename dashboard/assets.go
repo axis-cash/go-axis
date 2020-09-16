@@ -10512,7 +10512,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                         key: index
                     }, _react2.default.createElement("div", {
                         style: styles.logChunk,
-                        dangerouslySetInnerHTML: {
+                        dangaxisuslySetInnerHTML: {
                             __html: c.content
                         }
                     }));
@@ -16347,7 +16347,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         };
     }
     function xe(a, b) {
-        return null != b.dangerouslySetInnerHTML && A("91"), p({}, b, {
+        return null != b.dangaxisuslySetInnerHTML && A("91"), p({}, b, {
             value: void 0,
             defaultValue: void 0,
             children: "" + a._wrapperState.initialValue
@@ -16401,8 +16401,8 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         }
     }
     function Le(a, b, c) {
-        b && (Ke[a] && (null != b.children || null != b.dangerouslySetInnerHTML) && A("137", a, c()), 
-        null != b.dangerouslySetInnerHTML && (null != b.children && A("60"), "object" == typeof b.dangerouslySetInnerHTML && "__html" in b.dangerouslySetInnerHTML || A("61")), 
+        b && (Ke[a] && (null != b.children || null != b.dangaxisuslySetInnerHTML) && A("137", a, c()), 
+        null != b.dangaxisuslySetInnerHTML && (null != b.children && A("60"), "object" == typeof b.dangaxisuslySetInnerHTML && "__html" in b.dangaxisuslySetInnerHTML || A("61")), 
         null != b.style && "object" != typeof b.style && A("62", c()));
     }
     function Me(a, b) {
@@ -16524,7 +16524,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         var h, g = f;
         for (h in g) if (g.hasOwnProperty(h)) {
             var k = g[h];
-            "style" === h ? Je(a, k, Ne) : "dangerouslySetInnerHTML" === h ? null != (k = k ? k.__html : void 0) && Fe(a, k) : "children" === h ? "string" == typeof k ? ("textarea" !== b || "" !== k) && Ge(a, k) : "number" == typeof k && Ge(a, "" + k) : "suppressContentEditableWarning" !== h && "suppressHydrationWarning" !== h && "autoFocus" !== h && (ra.hasOwnProperty(h) ? null != k && Oe(d, h) : null != k && Ec(a, h, k, e));
+            "style" === h ? Je(a, k, Ne) : "dangaxisuslySetInnerHTML" === h ? null != (k = k ? k.__html : void 0) && Fe(a, k) : "children" === h ? "string" == typeof k ? ("textarea" !== b || "" !== k) && Ge(a, k) : "number" == typeof k && Ge(a, "" + k) : "suppressContentEditableWarning" !== h && "suppressHydrationWarning" !== h && "autoFocus" !== h && (ra.hasOwnProperty(h) ? null != k && Oe(d, h) : null != k && Ec(a, h, k, e));
         }
         switch (b) {
           case "input":
@@ -16578,14 +16578,14 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         for (a in c) if (!d.hasOwnProperty(a) && c.hasOwnProperty(a) && null != c[a]) if ("style" === a) {
             var h = c[a];
             for (b in h) h.hasOwnProperty(b) && (g || (g = {}), g[b] = "");
-        } else "dangerouslySetInnerHTML" !== a && "children" !== a && "suppressContentEditableWarning" !== a && "suppressHydrationWarning" !== a && "autoFocus" !== a && (ra.hasOwnProperty(a) ? f || (f = []) : (f = f || []).push(a, null));
+        } else "dangaxisuslySetInnerHTML" !== a && "children" !== a && "suppressContentEditableWarning" !== a && "suppressHydrationWarning" !== a && "autoFocus" !== a && (ra.hasOwnProperty(a) ? f || (f = []) : (f = f || []).push(a, null));
         for (a in d) {
             var k = d[a];
             if (h = null != c ? c[a] : void 0, d.hasOwnProperty(a) && k !== h && (null != k || null != h)) if ("style" === a) if (h) {
                 for (b in h) !h.hasOwnProperty(b) || k && k.hasOwnProperty(b) || (g || (g = {}), 
                 g[b] = "");
                 for (b in k) k.hasOwnProperty(b) && h[b] !== k[b] && (g || (g = {}), g[b] = k[b]);
-            } else g || (f || (f = []), f.push(a, g)), g = k; else "dangerouslySetInnerHTML" === a ? (k = k ? k.__html : void 0, 
+            } else g || (f || (f = []), f.push(a, g)), g = k; else "dangaxisuslySetInnerHTML" === a ? (k = k ? k.__html : void 0, 
             h = h ? h.__html : void 0, null != k && h !== k && (f = f || []).push(a, "" + k)) : "children" === a ? h === k || "string" != typeof k && "number" != typeof k || (f = f || []).push(a, "" + k) : "suppressContentEditableWarning" !== a && "suppressHydrationWarning" !== a && (ra.hasOwnProperty(a) ? (null != k && Oe(e, a), 
             f || h === k || (f = [])) : (f = f || []).push(a, k));
         }
@@ -16595,7 +16595,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         "input" === c && "radio" === e.type && null != e.name && Ic(a, e), Me(c, d), d = Me(c, e);
         for (var f = 0; f < b.length; f += 2) {
             var g = b[f], h = b[f + 1];
-            "style" === g ? Je(a, h, Ne) : "dangerouslySetInnerHTML" === g ? Fe(a, h) : "children" === g ? Ge(a, h) : Ec(a, g, h, d);
+            "style" === g ? Je(a, h, Ne) : "dangaxisuslySetInnerHTML" === g ? Fe(a, h) : "children" === g ? Ge(a, h) : Ec(a, g, h, d);
         }
         switch (c) {
           case "input":
@@ -16689,7 +16689,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         return !1;
     }
     function $e(a, b) {
-        return "textarea" === a || "string" == typeof b.children || "number" == typeof b.children || "object" == typeof b.dangerouslySetInnerHTML && null !== b.dangerouslySetInnerHTML && "string" == typeof b.dangerouslySetInnerHTML.__html;
+        return "textarea" === a || "string" == typeof b.children || "number" == typeof b.children || "object" == typeof b.dangaxisuslySetInnerHTML && null !== b.dangaxisuslySetInnerHTML && "string" == typeof b.dangaxisuslySetInnerHTML.__html;
     }
     function df(a) {
         for (a = a.nextSibling; a && 1 !== a.nodeType && 3 !== a.nodeType; ) a = a.nextSibling;
@@ -18669,7 +18669,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
         url: !0,
         week: !0
     }, ec = ca.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, I = "function" == typeof Symbol && Symbol.for, fc = I ? Symbol.for("react.element") : 60103, gc = I ? Symbol.for("react.portal") : 60106, hc = I ? Symbol.for("react.fragment") : 60107, ic = I ? Symbol.for("react.strict_mode") : 60108, jc = I ? Symbol.for("react.profiler") : 60114, mc = I ? Symbol.for("react.provider") : 60109, nc = I ? Symbol.for("react.context") : 60110, oc = I ? Symbol.for("react.async_mode") : 60111, pc = I ? Symbol.for("react.forward_ref") : 60112, qc = I ? Symbol.for("react.timeout") : 60113, rc = "function" == typeof Symbol && Symbol.iterator, wc = /^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$/, xc = {}, yc = {}, K = {};
-    "children dangerouslySetInnerHTML defaultValue defaultChecked innerHTML suppressContentEditableWarning suppressHydrationWarning style".split(" ").forEach(function(a) {
+    "children dangaxisuslySetInnerHTML defaultValue defaultChecked innerHTML suppressContentEditableWarning suppressHydrationWarning style".split(" ").forEach(function(a) {
         K[a] = new J(a, 0, !1, a, null);
     }), [ [ "acceptCharset", "accept-charset" ], [ "className", "class" ], [ "htmlFor", "for" ], [ "httpEquiv", "http-equiv" ] ].forEach(function(a) {
         var b = a[0];
@@ -20783,7 +20783,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
             }
             function getHostProps$3(element, props) {
                 var node = element;
-                return null != props.dangerouslySetInnerHTML && invariant(!1, "` + "`")) + (`dangerouslySetInnerHTML` + ("`" + ` does not make sense on <textarea>."), 
+                return null != props.dangaxisuslySetInnerHTML && invariant(!1, "` + "`")) + (`dangaxisuslySetInnerHTML` + ("`" + ` does not make sense on <textarea>."), 
                 _assign({}, props, {
                     value: void 0,
                     defaultValue: void 0,
@@ -20841,16 +20841,16 @@ var _bundleJs = []byte((((((((((`!function(modules) {
             function prefixKey(prefix, key) {
                 return prefix + key.charAt(0).toUpperCase() + key.substring(1);
             }
-            function dangerousStyleValue(name, value, isCustomProperty) {
+            function dangaxisusStyleValue(name, value, isCustomProperty) {
                 return null == value || "boolean" == typeof value || "" === value ? "" : isCustomProperty || "number" != typeof value || 0 === value || isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name] ? ("" + value).trim() : value + "px";
             }
-            function createDangerousStringForStyles(styles) {
+            function createDangaxisusStringForStyles(styles) {
                 var serialized = "", delimiter = "";
                 for (var styleName in styles) if (styles.hasOwnProperty(styleName)) {
                     var styleValue = styles[styleName];
                     if (null != styleValue) {
                         var isCustomProperty = 0 === styleName.indexOf("--");
-                        serialized += delimiter + hyphenateStyleName(styleName) + ":", serialized += dangerousStyleValue(styleName, styleValue, isCustomProperty), 
+                        serialized += delimiter + hyphenateStyleName(styleName) + ":", serialized += dangaxisusStyleValue(styleName, styleValue, isCustomProperty), 
                         delimiter = ";";
                     }
                 }
@@ -20861,14 +20861,14 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 for (var styleName in styles) if (styles.hasOwnProperty(styleName)) {
                     var isCustomProperty = 0 === styleName.indexOf("--");
                     isCustomProperty || warnValidStyle$1(styleName, styles[styleName], getStack);
-                    var styleValue = dangerousStyleValue(styleName, styles[styleName], isCustomProperty);
+                    var styleValue = dangaxisusStyleValue(styleName, styles[styleName], isCustomProperty);
                     "float" === styleName && (styleName = "cssFloat"), isCustomProperty ? style.setProperty(styleName, styleValue) : style[styleName] = styleValue;
                 }
             }
             function assertValidProps(tag, props, getStack) {
-                props && (voidElementTags[tag] && (null != props.children || null != props.dangerouslySetInnerHTML) && invariant(!1, "%s is a void element tag and must neither have `))) + (("`" + (`children` + "`")) + (` nor use ` + ("`" + `dangerouslySetInnerHTML`))))) + (((("`" + (`.%s", tag, getStack()), 
-                null != props.dangerouslySetInnerHTML && (null != props.children && invariant(!1, "Can only set one of ` + "`")) + (`children` + ("`" + ` or `))) + (("`" + (`props.dangerouslySetInnerHTML` + "`")) + (`."), 
-                "object" == typeof props.dangerouslySetInnerHTML && HTML$1 in props.dangerouslySetInnerHTML || invariant(!1, "` + ("`" + `props.dangerouslySetInnerHTML`)))) + ((("`" + (` must be in the form ` + "`")) + (`{__html: ...}` + ("`" + `. Please visit https://fb.me/react-invariant-dangerously-set-inner-html for more information.")), 
+                props && (voidElementTags[tag] && (null != props.children || null != props.dangaxisuslySetInnerHTML) && invariant(!1, "%s is a void element tag and must neither have `))) + (("`" + (`children` + "`")) + (` nor use ` + ("`" + `dangaxisuslySetInnerHTML`))))) + (((("`" + (`.%s", tag, getStack()), 
+                null != props.dangaxisuslySetInnerHTML && (null != props.children && invariant(!1, "Can only set one of ` + "`")) + (`children` + ("`" + ` or `))) + (("`" + (`props.dangaxisuslySetInnerHTML` + "`")) + (`."), 
+                "object" == typeof props.dangaxisuslySetInnerHTML && HTML$1 in props.dangaxisuslySetInnerHTML || invariant(!1, "` + ("`" + `props.dangaxisuslySetInnerHTML`)))) + ((("`" + (` must be in the form ` + "`")) + (`{__html: ...}` + ("`" + `. Please visit https://fb.me/react-invariant-dangaxisusly-set-inner-html for more information.")), 
                 !props.suppressContentEditableWarning && props.contentEditable && null != props.children && warning(!1, "A component is `))) + (("`" + (`contentEditable` + "`")) + (` and contains ` + ("`" + `children`)))))) + ((((("`" + (` managed by React. It is now your responsibility to guarantee that none of those nodes are unexpectedly modified or duplicated. This is probably not intentional.%s", getStack()), 
                 null != props.style && "object" != typeof props.style && invariant(!1, "The ` + "`")) + (`style` + ("`" + ` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.%s", getStack()));
             }
@@ -20950,7 +20950,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
             function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProps, isCustomComponentTag) {
                 for (var propKey in nextProps) if (nextProps.hasOwnProperty(propKey)) {
                     var nextProp = nextProps[propKey];
-                    if (propKey === STYLE) nextProp && Object.freeze(nextProp), setValueForStyles(domElement, nextProp, getStack); else if (propKey === DANGEROUSLY_SET_INNER_HTML) {
+                    if (propKey === STYLE) nextProp && Object.freeze(nextProp), setValueForStyles(domElement, nextProp, getStack); else if (propKey === DANGAXISUSLY_SET_INNER_HTML) {
                         var nextHtml = nextProp ? nextProp[HTML] : void 0;
                         null != nextHtml && setInnerHTML(domElement, nextHtml);
                     } else if (propKey === CHILDREN) if ("string" == typeof nextProp) {
@@ -20963,7 +20963,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
             function updateDOMProperties(domElement, updatePayload, wasCustomComponentTag, isCustomComponentTag) {
                 for (var i = 0; i < updatePayload.length; i += 2) {
                     var propKey = updatePayload[i], propValue = updatePayload[i + 1];
-                    propKey === STYLE ? setValueForStyles(domElement, propValue, getStack) : propKey === DANGEROUSLY_SET_INNER_HTML ? setInnerHTML(domElement, propValue) : propKey === CHILDREN ? setTextContent(domElement, propValue) : setValueForProperty(domElement, propKey, propValue, isCustomComponentTag);
+                    propKey === STYLE ? setValueForStyles(domElement, propValue, getStack) : propKey === DANGAXISUSLY_SET_INNER_HTML ? setInnerHTML(domElement, propValue) : propKey === CHILDREN ? setTextContent(domElement, propValue) : setValueForProperty(domElement, propKey, propValue, isCustomComponentTag);
                 }
             }
             function createElement$1(type, props, rootContainerElement, parentNamespace) {
@@ -21099,7 +21099,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                     var lastStyle = lastProps[propKey];
                     for (styleName in lastStyle) lastStyle.hasOwnProperty(styleName) && (styleUpdates || (styleUpdates = {}), 
                     styleUpdates[styleName] = "");
-                } else propKey === DANGEROUSLY_SET_INNER_HTML || propKey === CHILDREN || propKey === SUPPRESS_CONTENT_EDITABLE_WARNING || propKey === SUPPRESS_HYDRATION_WARNING$1 || propKey === AUTOFOCUS || (registrationNameModules.hasOwnProperty(propKey) ? updatePayload || (updatePayload = []) : (updatePayload = updatePayload || []).push(propKey, null));
+                } else propKey === DANGAXISUSLY_SET_INNER_HTML || propKey === CHILDREN || propKey === SUPPRESS_CONTENT_EDITABLE_WARNING || propKey === SUPPRESS_HYDRATION_WARNING$1 || propKey === AUTOFOCUS || (registrationNameModules.hasOwnProperty(propKey) ? updatePayload || (updatePayload = []) : (updatePayload = updatePayload || []).push(propKey, null));
                 for (propKey in nextProps) {
                     var nextProp = nextProps[propKey], lastProp = null != lastProps ? lastProps[propKey] : void 0;
                     if (nextProps.hasOwnProperty(propKey) && nextProp !== lastProp && (null != nextProp || null != lastProp)) if (propKey === STYLE) if (nextProp && Object.freeze(nextProp), 
@@ -21109,7 +21109,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                         for (styleName in nextProp) nextProp.hasOwnProperty(styleName) && lastProp[styleName] !== nextProp[styleName] && (styleUpdates || (styleUpdates = {}), 
                         styleUpdates[styleName] = nextProp[styleName]);
                     } else styleUpdates || (updatePayload || (updatePayload = []), updatePayload.push(propKey, styleUpdates)), 
-                    styleUpdates = nextProp; else if (propKey === DANGEROUSLY_SET_INNER_HTML) {
+                    styleUpdates = nextProp; else if (propKey === DANGAXISUSLY_SET_INNER_HTML) {
                         var nextHtml = nextProp ? nextProp[HTML] : void 0, lastHtml = lastProp ? lastProp[HTML] : void 0;
                         null != nextHtml && lastHtml !== nextHtml && (updatePayload = updatePayload || []).push(propKey, "" + nextHtml);
                     } else propKey === CHILDREN ? lastProp === nextProp || "string" != typeof nextProp && "number" != typeof nextProp || (updatePayload = updatePayload || []).push(propKey, "" + nextProp) : propKey === SUPPRESS_CONTENT_EDITABLE_WARNING || propKey === SUPPRESS_HYDRATION_WARNING$1 || (registrationNameModules.hasOwnProperty(propKey) ? (null != nextProp && ("function" != typeof nextProp && warnForInvalidEventListener(propKey, nextProp), 
@@ -21211,12 +21211,12 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                     updatePayload = [ CHILDREN, "" + nextProp ]); else if (registrationNameModules.hasOwnProperty(propKey)) null != nextProp && ("function" != typeof nextProp && warnForInvalidEventListener(propKey, nextProp), 
                     ensureListeningTo(rootContainerElement, propKey)); else if ("boolean" == typeof isCustomComponentTag) {
                         var serverValue = void 0, propertyInfo = getPropertyInfo(propKey);
-                        if (suppressHydrationWarning) ; else if (propKey === SUPPRESS_CONTENT_EDITABLE_WARNING || propKey === SUPPRESS_HYDRATION_WARNING$1 || "value" === propKey || "checked" === propKey || "selected" === propKey) ; else if (propKey === DANGEROUSLY_SET_INNER_HTML) {
+                        if (suppressHydrationWarning) ; else if (propKey === SUPPRESS_CONTENT_EDITABLE_WARNING || propKey === SUPPRESS_HYDRATION_WARNING$1 || "value" === propKey || "checked" === propKey || "selected" === propKey) ; else if (propKey === DANGAXISUSLY_SET_INNER_HTML) {
                             var rawHtml = nextProp ? nextProp[HTML] || "" : "", serverHTML = domElement.innerHTML, expectedHTML = normalizeHTML(domElement, rawHtml);
                             expectedHTML !== serverHTML && warnForPropDifference(propKey, serverHTML, expectedHTML);
                         } else if (propKey === STYLE) {
                             extraAttributeNames.delete(propKey);
-                            var expectedStyle = createDangerousStringForStyles(nextProp);
+                            var expectedStyle = createDangaxisusStringForStyles(nextProp);
                             serverValue = domElement.getAttribute("style"), expectedStyle !== serverValue && warnForPropDifference(propKey, serverValue, expectedStyle);
                         } else if (isCustomComponentTag) extraAttributeNames.delete(propKey.toLowerCase()), 
                         serverValue = getValueForAttribute(domElement, propKey, nextProp), nextProp !== serverValue && warnForPropDifference(propKey, serverValue, nextProp); else if (!shouldIgnoreAttribute(propKey, propertyInfo, isCustomComponentTag) && !shouldRemoveAttribute(propKey, nextProp, propertyInfo, isCustomComponentTag)) {
@@ -21361,7 +21361,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 return diffProperties(domElement, type, oldProps, newProps, rootContainerInstance);
             }
             function shouldSetTextContent(type, props) {
-                return "textarea" === type || "string" == typeof props.children || "number" == typeof props.children || "object" == typeof props.dangerouslySetInnerHTML && null !== props.dangerouslySetInnerHTML && "string" == typeof props.dangerouslySetInnerHTML.__html;
+                return "textarea" === type || "string" == typeof props.children || "number" == typeof props.children || "object" == typeof props.dangaxisuslySetInnerHTML && null !== props.dangaxisuslySetInnerHTML && "string" == typeof props.dangaxisuslySetInnerHTML.__html;
             }
             function shouldDeprioritizeSubtree(type, props) {
                 return !!props.hidden;
@@ -24622,7 +24622,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 getCurrentFiberOwnerName: getCurrentFiberOwnerName$1,
                 getCurrentFiberStackAddendum: getCurrentFiberStackAddendum$1
             }, RESERVED = 0, BOOLEANISH_STRING = 2, BOOLEAN = 3, OVERLOADED_BOOLEAN = 4, NUMERIC = 5, POSITIVE_NUMERIC = 6, ATTRIBUTE_NAME_START_CHAR = ":A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD", ATTRIBUTE_NAME_CHAR = ATTRIBUTE_NAME_START_CHAR + "\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040", ROOT_ATTRIBUTE_NAME = "data-reactroot", VALID_ATTRIBUTE_NAME_REGEX = new RegExp("^[" + ATTRIBUTE_NAME_START_CHAR + "][" + ATTRIBUTE_NAME_CHAR + "]*$"), illegalAttributeNameCache = {}, validatedAttributeNameCache = {}, properties = {};
-            [ "children", "dangerouslySetInnerHTML", "defaultValue", "defaultChecked", "innerHTML", "suppressContentEditableWarning", "suppressHydrationWarning", "style" ].forEach(function(name) {
+            [ "children", "dangaxisuslySetInnerHTML", "defaultValue", "defaultChecked", "innerHTML", "suppressContentEditableWarning", "suppressHydrationWarning", "style" ].forEach(function(name) {
                 properties[name] = new PropertyInfoRecord(name, RESERVED, !1, name, null);
             }), [ [ "acceptCharset", "accept-charset" ], [ "className", "class" ], [ "htmlFor", "for" ], [ "httpEquiv", "http-equiv" ] ].forEach(function(_ref) {
                 var name = _ref[0], attributeName = _ref[1];
@@ -25282,7 +25282,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 controlslist: "controlsList",
                 coords: "coords",
                 crossorigin: "crossOrigin",
-                dangerouslysetinnerhtml: "dangerouslySetInnerHTML",
+                dangaxisuslysetinnerhtml: "dangaxisuslySetInnerHTML",
                 data: "data",
                 datetime: "dateTime",
                 default: "default",
@@ -25792,7 +25792,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                 } else if (EVENT_NAME_REGEX.test(name)) return INVALID_EVENT_NAME_REGEX.test(name) && warning(!1, "Invalid event handler property ` + "`")) + (`%s` + ("`" + `. React events use the camelCase naming convention, for example `)))) + ((("`" + (`onClick` + "`")) + (`.%s", name, getStackAddendum$2()), 
                 warnedProperties$1[name] = !0, !0;
                 if (rARIA$1.test(name) || rARIACamel$1.test(name)) return !0;
-                if ("innerhtml" === lowerCasedName) return warning(!1, "Directly setting property ` + ("`" + `innerHTML`))) + (("`" + (` is not permitted. For more information, lookup documentation on ` + "`")) + (`dangerouslySetInnerHTML` + ("`" + `."), 
+                if ("innerhtml" === lowerCasedName) return warning(!1, "Directly setting property ` + ("`" + `innerHTML`))) + (("`" + (` is not permitted. For more information, lookup documentation on ` + "`")) + (`dangaxisuslySetInnerHTML` + ("`" + `."), 
                 warnedProperties$1[name] = !0, !0;
                 if ("aria" === lowerCasedName) return warning(!1, "The `)))))) + ((((("`" + (`aria` + "`")) + (` attribute is reserved for future use in React. Pass individual ` + ("`" + `aria-`))) + (("`" + (` attributes instead."), 
                 warnedProperties$1[name] = !0, !0;
@@ -25820,7 +25820,7 @@ var _bundleJs = []byte((((((((((`!function(modules) {
                     return "`)) + ("`" + (`" + prop + "` + "`"))) + ((`";
                 }).join(", ");
                 1 === unknownProps.length ? warning(!1, "Invalid value for prop %s on <%s> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://fb.me/react-attribute-behavior%s", unknownPropString, type, getStackAddendum$2()) : unknownProps.length > 1 && warning(!1, "Invalid values for props %s on <%s> tag. Either remove them from the element, or pass a string or number value to keep them in the DOM. For details, see https://fb.me/react-attribute-behavior%s", unknownPropString, type, getStackAddendum$2());
-            }, getCurrentFiberOwnerName$2 = ReactDebugCurrentFiber.getCurrentFiberOwnerName, getCurrentFiberStackAddendum$2 = ReactDebugCurrentFiber.getCurrentFiberStackAddendum, didWarnInvalidHydration = !1, didWarnShadyDOM = !1, DANGEROUSLY_SET_INNER_HTML = "dangerouslySetInnerHTML", SUPPRESS_CONTENT_EDITABLE_WARNING = "suppressContentEditableWarning", SUPPRESS_HYDRATION_WARNING$1 = "suppressHydrationWarning", AUTOFOCUS = "autoFocus", CHILDREN = "children", STYLE = "style", HTML = "__html", HTML_NAMESPACE = Namespaces.html, getStack = emptyFunction.thatReturns(""), warnedUnknownTags = void 0, suppressHydrationWarning = void 0, validatePropertiesInDevelopment = void 0, warnForTextDifference = void 0, warnForPropDifference = void 0, warnForExtraAttributes = void 0, warnForInvalidEventListener = void 0, normalizeMarkupForTextOrAttribute = void 0, normalizeHTML = void 0;
+            }, getCurrentFiberOwnerName$2 = ReactDebugCurrentFiber.getCurrentFiberOwnerName, getCurrentFiberStackAddendum$2 = ReactDebugCurrentFiber.getCurrentFiberStackAddendum, didWarnInvalidHydration = !1, didWarnShadyDOM = !1, DANGAXISUSLY_SET_INNER_HTML = "dangaxisuslySetInnerHTML", SUPPRESS_CONTENT_EDITABLE_WARNING = "suppressContentEditableWarning", SUPPRESS_HYDRATION_WARNING$1 = "suppressHydrationWarning", AUTOFOCUS = "autoFocus", CHILDREN = "children", STYLE = "style", HTML = "__html", HTML_NAMESPACE = Namespaces.html, getStack = emptyFunction.thatReturns(""), warnedUnknownTags = void 0, suppressHydrationWarning = void 0, validatePropertiesInDevelopment = void 0, warnForTextDifference = void 0, warnForPropDifference = void 0, warnForExtraAttributes = void 0, warnForInvalidEventListener = void 0, normalizeMarkupForTextOrAttribute = void 0, normalizeHTML = void 0;
             getStack = getCurrentFiberStackAddendum$2, warnedUnknownTags = {
                 time: !0,
                 dialog: !0
@@ -29817,11 +29817,11 @@ var _bundleJs = []byte((((((((((`!function(modules) {
     "use strict";
     (function(process) {
         function createGenerateClassName() {
-            var options = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, _options$dangerouslyU = options.dangerouslyUseGlobalCSS, dangerouslyUseGlobalCSS = void 0 !== _options$dangerouslyU && _options$dangerouslyU, _options$productionPr = options.productionPrefix, productionPrefix = void 0 === _options$productionPr ? "jss" : _options$productionPr, escapeRegex = /([[\].#*$><+~=|^:(),"'` + ("`" + `\s])/g, ruleCounter = 0;
+            var options = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, _options$dangaxisuslyU = options.dangaxisuslyUseGlobalCSS, dangaxisuslyUseGlobalCSS = void 0 !== _options$dangaxisuslyU && _options$dangaxisuslyU, _options$productionPr = options.productionPrefix, productionPrefix = void 0 === _options$productionPr ? "jss" : _options$productionPr, escapeRegex = /([[\].#*$><+~=|^:(),"'` + ("`" + `\s])/g, ruleCounter = 0;
             return "production" === process.env.NODE_ENV && "undefined" != typeof window && "jss" === productionPrefix && (generatorCounter += 1) > 2 && console.error([ "Material-UI: we have detected more than needed creation of the class name generator.", "You should only use one class name generator on the client side.", "If you do otherwise, you take the risk to have conflicting class names in production." ].join("\n")), 
             function(rule, styleSheet) {
                 if (ruleCounter += 1, "production" !== process.env.NODE_ENV && (0, _warning2.default)(ruleCounter < 1e10, [ "Material-UI: you might have a memory leak.", "The ruleCounter is not supposed to grow that much." ].join("")), 
-                dangerouslyUseGlobalCSS) {
+                dangaxisuslyUseGlobalCSS) {
                     if (styleSheet && styleSheet.options.classNamePrefix) {
                         var prefix = styleSheet.options.classNamePrefix;
                         if (prefix = prefix.replace(escapeRegex, "-"), prefix.match(/^Mui/)) return prefix + "-" + rule.key;

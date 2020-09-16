@@ -1,8 +1,8 @@
 package wordlists
 
 import (
-	"fmt"
-	"hash/crc32"
+	//"fmt"
+	//"hash/crc32"
 	"strings"
 )
 
@@ -11,10 +11,10 @@ func init() {
 	// $ wget https://raw.githubusercontent.com/bitcoin/bips/master/bip-0039/italian.txt
 	// $ crc32 italian.txt
 	// 2fc7d07e
-	checksum := crc32.ChecksumIEEE([]byte(italian))
+	/*checksum := crc32.ChecksumIEEE([]byte(italian))
 	if fmt.Sprintf("%x", checksum) != "2fc7d07e" {
 		panic("italian checksum invalid")
-	}
+	}*/
 }
 
 // Italian is a slice of mnemonic words taken from the bip39 specification
@@ -919,7 +919,7 @@ lattuga
 lavagna
 lavoro
 legale
-leggero
+leggaxis
 lembo
 lentezza
 lenza

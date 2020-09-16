@@ -489,7 +489,7 @@ const (
 	ETHERTYPE_TEC                     = 0x814f
 	ETHERTYPE_TIGAN                   = 0x802f
 	ETHERTYPE_TRAIL                   = 0x1000
-	ETHERTYPE_TRANAXISER              = 0x6558
+	ETHERTYPE_TRANSETHER              = 0x6558
 	ETHERTYPE_TYMSHARE                = 0x802e
 	ETHERTYPE_UBBST                   = 0x7005
 	ETHERTYPE_UBDEBUG                 = 0x900

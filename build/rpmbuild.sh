@@ -50,13 +50,13 @@ mkdir -p etc/gaxis
 mkdir -p usr/local/bin
 mkdir -p usr/lib64
 cp -rf ${START_PATH}/bin/* usr/local/bin
-mv  usr/local/bin/gaxis usr/local/bin/_gero
+mv  usr/local/bin/gaxis usr/local/bin/_gaxis
 cp -rf ${SOURCE_PATH}/go-axis-import/czero* usr/lib64
 cat > usr/local/bin/gaxis << EOL
 export LD_LIBRARY_PATH=/usr/lib64/czero/lib
-/usr/local/bin/_gero $1
+/usr/local/bin/_gaxis $1
 EOL
-#echo "export LD_LIBRARY_PATH=/usr/lib64/czero/lib\n/usr/bin/_gero $1\n" > usr/bin/gaxis
+#echo "export LD_LIBRARY_PATH=/usr/lib64/czero/lib\n/usr/bin/_gaxis $1\n" > usr/bin/gaxis
 cp ${START_PATH}/gaxis.conf etc/gaxis/
 chmod -R 755 *
 cd ${START_PATH}/tmp

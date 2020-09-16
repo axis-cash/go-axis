@@ -6,10 +6,16 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/axis-cash/go-axis-import/axisparam"
-
 	"github.com/axis-cash/go-axis-import/c_type"
+	"github.com/axis-cash/go-axis-import/axisparam"
 )
+
+/*******
+var current=axis.blockNumber
+for(var i=0;i<current;i+=10000) {
+	console.log('{"Num":'+i+',"Root":"'+axis.getBlock(i).stateRoot+'"},')
+}
+********/
 
 var checkpoints_json = `[
 ]`
@@ -36,7 +42,7 @@ func (self *checkPoints) Check(num uint64, root []byte) (e error) {
 	if num > self.maxNum {
 		panic(fmt.Errorf("check points error: the num > maxNum %d-%s", num, hex.EncodeToString(root)))
 	}
-	if (num > 0) && (num%1000 == 0) {
+	if (num > 0) && (num%10000 == 0) {
 		if rt, ok := self.points[num]; !ok {
 			return fmt.Errorf("check points error: can not find the point %d-%s", num, hex.EncodeToString(root))
 		} else {

@@ -313,7 +313,7 @@ class Logs extends Component<Props, State> {
 				<List>
 					{this.props.content.logs.chunks.map((c, index) => (
 						<ListItem style={styles.logListItem} key={index}>
-							<div style={styles.logChunk} dangerouslySetInnerHTML={{__html: c.content}} />
+							<div style={styles.logChunk} dangaxisuslySetInnerHTML={{__html: c.content}} />
 						</ListItem>
 					))}
 				</List>

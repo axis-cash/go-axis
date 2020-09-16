@@ -1,3 +1,4 @@
+
 // copyright 2018 The go-ethereum Authors
 // This file is part of the go-ethereum library.
 //
@@ -25,6 +26,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/axis-cash/go-axis/zero/zconfig"
 
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/consensus"
@@ -132,8 +135,12 @@ func NewProtocolManager(config *params.ChainConfig, mode downloader.SyncMode, ne
 		}
 		// Compatible; initialise the sub-protocol
 		version := version // Closure for the run
+		protocolName := ProtocolName
+		if zconfig.IsTestFork() {
+			protocolName = "fork-axis"
+		}
 		manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
-			Name:    ProtocolName,
+			Name:    protocolName,
 			Version: version,
 			Length:  ProtocolLengths[i],
 			Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
@@ -635,7 +642,11 @@ func (pm *ProtocolManager) handleMsg(p *peer) error {
 			}
 			p.MarkTransaction(tx.Hash())
 		}
-		pm.txpool.AddRemotes(txs)
+		currentBlock := pm.blockchain.CurrentBlock()
+		difference := time.Now().Unix() - currentBlock.Time().Int64()
+		if difference < 10*60 {
+			pm.txpool.AddRemotes(txs)
+		}
 
 	case msg.Code == NewVoteMsg:
 		var vote types.Vote

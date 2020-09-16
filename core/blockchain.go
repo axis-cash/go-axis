@@ -1066,7 +1066,7 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 			if zconfig.IsSnapshotMode() {
 				needCommit = zconfig.NeedSnapshot(block.NumberU64())
 			} else {
-				needCommit = (bc.gcproc > bc.cacheConfig.TrieTimeLimit) || (header.Number.Uint64()%1000 == 0)
+				needCommit = (bc.gcproc > bc.cacheConfig.TrieTimeLimit) || (header.Number.Uint64()%10000 == 0)
 			}
 
 			// If we exceeded out time allowance, flush an entire trie to disk

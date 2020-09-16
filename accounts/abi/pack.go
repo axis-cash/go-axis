@@ -20,6 +20,9 @@ import (
 	"math/big"
 	"reflect"
 
+	"github.com/axis-cash/go-axis-import/c_type"
+
+	"github.com/axis-cash/go-axis-import/c_superzk"
 	"github.com/axis-cash/go-axis/common"
 	"github.com/axis-cash/go-axis/common/math"
 )
@@ -29,6 +32,14 @@ import (
 func packBytesSlice(bytes []byte, l int) []byte {
 	len := packNum(reflect.ValueOf(l))
 	return append(len, common.RightPadBytes(bytes, (l+31)/32*32)...)
+}
+
+func convertToPkr(addr []byte) []byte {
+	var pkr c_type.PKr
+	copy(pkr[:], addr)
+	shortAddr := c_superzk.HashPKr(pkr.NewRef())
+	return common.LeftPadBytes(shortAddr[:], 32)
+
 }
 
 // packElement packs the given reflect value according to the abi specification in
@@ -43,8 +54,7 @@ func packElement(t Type, reflectValue reflect.Value) []byte {
 		if reflectValue.Kind() == reflect.Array {
 			reflectValue = mustArrayToByteSlice(reflectValue)
 		}
-
-		return common.LeftPadBytes(reflectValue.Bytes(), 32)
+		return convertToPkr(reflectValue.Bytes())
 	case BoolTy:
 		if reflectValue.Bool() {
 			return math.PaddedBigBytes(common.Big1, 32)

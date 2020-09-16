@@ -2,7 +2,6 @@ package generate_1
 
 import (
 	"github.com/axis-cash/go-axis-import/c_superzk"
-	"github.com/axis-cash/go-axis-import/axisparam"
 	"github.com/axis-cash/go-axis/zero/txs/stx"
 	"github.com/axis-cash/go-axis/zero/txtool"
 )
@@ -71,11 +70,7 @@ func (self *prove_ctx) prove() (e error) {
 		g.asset = out.Asset.ToTypeAsset()
 		g.index = i
 
-		sip6 := axisparam.XIP6()
-		if axisparam.Is_Offline() {
-			sip6 = uint64(0)
-		}
-		if self.param.Num != nil && *self.param.Num >= sip6 {
+		if self.param.IsExt != nil && *self.param.IsExt {
 			g.isEx = true
 		}
 

@@ -46,7 +46,6 @@ import (
 	"github.com/axis-cash/go-axis/metrics"
 	"github.com/axis-cash/go-axis/node"
 	"github.com/axis-cash/go-axis/axis"
-	"github.com/axis-cash/go-axis/axisclient"
 )
 
 const (
@@ -115,14 +114,18 @@ var (
 		//utils.RinkebyFlag,
 		utils.ExchangeFlag,
 		utils.ExchangeValueStrFlag,
+		utils.StakeFlag,
 		utils.AutoMergeFlag,
 		utils.ConfirmedBlockFlag,
+		utils.RecordBlockShareNumber,
 		utils.LightNodeFlag,
 		utils.ResetBlockNumber,
 
 		utils.DeveloperFlag,
 		utils.OfflineFlag,
 		utils.SnapshotFlag,
+		utils.TestStartBlockFlag,
+		utils.TestForkFlag,
 		utils.VMEnableDebugFlag,
 		utils.NetworkIdFlag,
 		utils.RPCCORSDomainFlag,
@@ -182,7 +185,6 @@ func init() {
 	app.Copyright = "Copyright 2013-2018 The go-axis Authors"
 	app.Commands = []cli.Command{
 		// See chaincmd.go:
-		initCommand,
 		importCommand,
 		exportCommand,
 		importPreimagesCommand,
@@ -406,11 +408,11 @@ func startNode(ctx *cli.Context, stack *node.Node) {
 
 	go func() {
 		// Create a chain state reader for self-derivation
-		rpcClient, err := stack.Attach()
-		if err != nil {
-			utils.Fatalf("Failed to attach to self: %v", err)
-		}
-		stateReader := axisclient.NewClient(rpcClient)
+		//rpcClient, err := stack.Attach()
+		//if err != nil {
+		//	utils.Fatalf("Failed to attach to self: %v", err)
+		//}
+		//stateReader := axisclient.NewClient(rpcClient)
 
 		// Open any wallets already attached
 		for _, wallet := range stack.AccountManager().Wallets() {
@@ -425,15 +427,6 @@ func startNode(ctx *cli.Context, stack *node.Node) {
 				if err := event.Wallet.Open(""); err != nil {
 					log.Warn("New wallet appeared, failed to open", "url", event.Wallet.URL(), "err", err)
 				}
-			case accounts.WalletOpened:
-				status, _ := event.Wallet.Status()
-				log.Info("New wallet appeared", "url", event.Wallet.URL(), "status", status)
-
-				derivationPath := accounts.DefaultBaseDerivationPath
-				if event.Wallet.URL().Scheme == "ledger" {
-					derivationPath = accounts.DefaultLedgerBaseDerivationPath
-				}
-				event.Wallet.SelfDerive(derivationPath, stateReader)
 
 			case accounts.WalletDropped:
 				log.Info("Old wallet dropped", "url", event.Wallet.URL())

@@ -46,42 +46,42 @@ for os in ${os_version[@]}
     do
       echo "make gaxis-${os}"
       make "gaxis-"${os}
-      rm -rf $BUILD_PATH/geropkg/bin
-      rm -rf $BUILD_PATH/geropkg/czero
-      mkdir -p $BUILD_PATH/geropkg/bin
-      mkdir -p $BUILD_PATH/geropkg/czero/data/
-      mkdir -p $BUILD_PATH/geropkg/czero/include/
-      mkdir -p $BUILD_PATH/geropkg/czero/lib/
-      cp -rf $CZERO_PATH/czero/data/* $AXIS_PATH/build/geropkg/czero/data/
-      cp -rf $CZERO_PATH/czero/include/* $AXIS_PATH/build/geropkg/czero/include/
+      rm -rf $BUILD_PATH/gaxispkg/bin
+      rm -rf $BUILD_PATH/gaxispkg/czero
+      mkdir -p $BUILD_PATH/gaxispkg/bin
+      mkdir -p $BUILD_PATH/gaxispkg/czero/data/
+      mkdir -p $BUILD_PATH/gaxispkg/czero/include/
+      mkdir -p $BUILD_PATH/gaxispkg/czero/lib/
+      cp -rf $CZERO_PATH/czero/data/* $AXIS_PATH/build/gaxispkg/czero/data/
+#      cp -rf $CZERO_PATH/czero/include/* $AXIS_PATH/build/gaxispkg/czero/include/
       if [ $os == "windows-amd64" ];then
-        mv $BUILD_PATH/bin/gaxis*.exe $BUILD_PATH/geropkg/bin/gaxis.exe
-        cp -rf  $CZERO_PATH/czero/lib_WINDOWS_AMD64/* $AXIS_PATH/build/geropkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxis*.exe $BUILD_PATH/gaxispkg/bin/gaxis.exe
+        cp -rf  $CZERO_PATH/czero/lib_WINDOWS_AMD64/* $AXIS_PATH/build/gaxispkg/czero/lib/
       elif [ $os == "linux-amd64-v3" ];then
-        mv $BUILD_PATH/bin/bootnode-v3*  $BUILD_PATH/geropkg/bin/bootnode
-        mv $BUILD_PATH/bin/gaxis-v3* $BUILD_PATH/geropkg/bin/gaxis
-        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V3/* $AXIS_PATH/build/geropkg/czero/lib/
+#        mv $BUILD_PATH/bin/bootnode-v3*  $BUILD_PATH/gaxispkg/bin/bootnode
+        mv $BUILD_PATH/bin/gaxis-v3* $BUILD_PATH/gaxispkg/bin/gaxis
+        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V3/* $AXIS_PATH/build/gaxispkg/czero/lib/
       elif [ $os == "linux-amd64-v4" ];then
-        mv $BUILD_PATH/bin/bootnode-v4*  $BUILD_PATH/geropkg/bin/bootnode
-        mv $BUILD_PATH/bin/gaxis-v4* $BUILD_PATH/geropkg/bin/gaxis
-        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V4/* $AXIS_PATH/build/geropkg/czero/lib/
+#        mv $BUILD_PATH/bin/bootnode-v4*  $BUILD_PATH/gaxispkg/bin/bootnode
+        mv $BUILD_PATH/bin/gaxis-v4* $BUILD_PATH/gaxispkg/bin/gaxis
+        cp -rf  $CZERO_PATH/czero/lib_LINUX_AMD64_V4/* $AXIS_PATH/build/gaxispkg/czero/lib/
       else
-        mv $BUILD_PATH/bin/gaxis-darwin* $BUILD_PATH/geropkg/bin/gaxis
-        cp -rf  $CZERO_PATH/czero/lib_DARWIN_AMD64/* $AXIS_PATH/build/geropkg/czero/lib/
+        mv $BUILD_PATH/bin/gaxis-darwin* $BUILD_PATH/gaxispkg/bin/gaxis
+        cp -rf  $CZERO_PATH/czero/lib_DARWIN_AMD64/* $AXIS_PATH/build/gaxispkg/czero/lib/
       fi
       cd $BUILD_PATH
 
       if [ $os == "windows-amd64" ];then
         rm -rf ./gaxis-*-$os.zip
-        zip -r gaxis-$version-$os.zip geropkg/*
+        zip -r gaxis-$version-$os.zip gaxispkg/*
       else
          rm -rf ./gaxis-*-$os.tar.gz
-         tar czvf gaxis-$version-$os.tar.gz geropkg/*
+         tar czvf gaxis-$version-$os.tar.gz gaxispkg/*
       fi
 
       cd $LOCAL_PATH
 
     done
-rm -rf $BUILD_PATH/geropkg/bin
-rm -rf $BUILD_PATH/geropkg/czero
+rm -rf $BUILD_PATH/gaxispkg/bin
+rm -rf $BUILD_PATH/gaxispkg/czero
 

@@ -16171,7 +16171,7 @@ DUK_EXTERNAL void duk_inspect_callstack_entry(duk_hthread *thr, duk_int_t level)
 	duk_put_prop_stridx_short(thr, -3, DUK_STRIDX_LINE_NUMBER);
 
 	duk_put_prop_stridx_short(thr, -2, DUK_STRIDX_LC_FUNCTION);
-	/* Providing access to e.g. act->lex_env would be dangerous: these
+	/* Providing access to e.g. act->lex_env would be dangaxisus: these
 	 * internal structures must never be accessible to the application.
 	 * Duktape relies on them having consistent data, and this consistency
 	 * is only asserted for, not checked for.
@@ -22588,7 +22588,7 @@ DUK_EXTERNAL duk_idx_t duk_push_heapptr(duk_hthread *thr, void *ptr) {
 
 	DUK_ASSERT_API_ENTRY(thr);
 
-	/* Reviving an object using a heap pointer is a dangerous API
+	/* Reviving an object using a heap pointer is a dangaxisus API
 	 * operation: if the application doesn't guarantee that the
 	 * pointer target is always reachable, difficult-to-diagnose
 	 * problems may ensue.  Try to validate the 'ptr' argument to
@@ -62372,7 +62372,7 @@ DUK_LOCAL duk_hobject *duk__resolve_target_func_and_this_binding(duk_hthread *th
 	 * GETPROPC replaces idx_func+0 with an Error (non-callable) with
 	 * a hidden Symbol to signify it's to be thrown as is here.  The
 	 * hidden Symbol is only checked as an own property, not inherited
-	 * (which would be dangerous).
+	 * (which would be dangaxisus).
 	 */
 	if (DUK_TVAL_IS_OBJECT(tv_func)) {
 		if (duk_hobject_find_existing_entry_tval_ptr(thr->heap, DUK_TVAL_GET_OBJECT(tv_func), DUK_HTHREAD_STRING_INT_TARGET(thr)) != NULL) {
@@ -63961,7 +63961,7 @@ DUK_INTERNAL DUK_NOINLINE DUK_COLD void duk_call_setup_propcall_error(duk_hthrea
 #define DUK__ISREG_TEMP(comp_ctx,x)         ((duk_int32_t) (x) >= (duk_int32_t) ((comp_ctx)->curr_func.temp_first))   /* Check for x >= temp_first && x >= 0 by comparing as signed. */
 #define DUK__ISREG_NOTTEMP(comp_ctx,x)      ((duk_uint32_t) (x) < (duk_uint32_t) ((comp_ctx)->curr_func.temp_first))  /* Check for x >= 0 && x < temp_first by interpreting as unsigned. */
 #define DUK__GETTEMP(comp_ctx)              ((comp_ctx)->curr_func.temp_next)
-#define DUK__SETTEMP(comp_ctx,x)            ((comp_ctx)->curr_func.temp_next = (x))  /* dangerous: must only lower (temp_max not updated) */
+#define DUK__SETTEMP(comp_ctx,x)            ((comp_ctx)->curr_func.temp_next = (x))  /* dangaxisus: must only lower (temp_max not updated) */
 #define DUK__SETTEMP_CHECKMAX(comp_ctx,x)   duk__settemp_checkmax((comp_ctx),(x))
 #define DUK__ALLOCTEMP(comp_ctx)            duk__alloctemp((comp_ctx))
 #define DUK__ALLOCTEMPS(comp_ctx,count)     duk__alloctemps((comp_ctx),(count))
