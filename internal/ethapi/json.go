@@ -127,7 +127,7 @@ func (b PKrAddressEx) ToPKr() *c_type.PKrEx {
 }
 
 func (b PKrAddressEx) MarshalText() ([]byte, error) {
-	return []byte(b.String()[1:]), nil
+	return []byte(b.String()[:]), nil
 }
 
 func (b PKrAddressEx) String() string {
