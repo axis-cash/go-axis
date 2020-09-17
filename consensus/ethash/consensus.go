@@ -466,8 +466,8 @@ var (
 	teamRewardPool      = common.BytesToAddress(crypto.Keccak512([]byte{1}))
 	communityRewardPool = common.BytesToAddress(crypto.Keccak512([]byte{2}))
 
-	teamAddress      = common.Base58ToAddress("RnRpAdXWaS2BnUzrUuzR8WPRfFackV65CzyqWU8mK4Np2aCgDUvrhYciDJoQZpMzWpaaKqsicf1u8fRd4ZKXeSUF2pMLHXXaiCX8XzHw3VRyX2Q7ko4BrRj9xTrNaErnTkg")
-	communityAddress = common.Base58ToAddress("ZkVB2f8H1usYBSeViS7wPqSSFseXnCYXEbT2XxCSuRhfFg9KbBKbTvpTBj7dmSZxEKTp6rsqS3EX9js6StgRijZQBkaok2U5Fy8oLuGFrt1C5jwdAYB4Nqn8KNRniiQyCeb")
+	teamAddress      = common.Base58ToAddress("NGsyb5qeqLJs8TCvAeWSMmPGRn85H2SRWn4Y9Gq8sMDeqN5jRJx86akFTCLunNiWLNYgAcdHn4jGg4KtG8Pbbanp8sRNKHAXCcBhNZJVp5yadBzZ5wHQiePnx1TC6i5bPDk")
+	communityAddress = common.Base58ToAddress("8unZXT72FhLfNKKjoTp9ar7TVH4iVtGXjoSf8y21Kxq7pbdjjPf5UT2ZHz6SS47mME7w4raBNdK5jMPRxp5AzyAwPdg4rAo2sicS9o6yZde6FYCo1FiRu88P2ohEuVshpbTb")
 )
 
 func Halve(blockNumber *big.Int) *big.Int {

@@ -231,8 +231,8 @@ func (s *PublicStakeApI) RegistStakePool(ctx context.Context, args RegistStakePo
 
 	if !axisparam.Is_Dev() {
 		peerCount := s.b.PeerCount()
-		if peerCount < 10 {
-			return common.Hash{}, errors.New("connected peer < 10")
+		if peerCount < 5 {
+			return common.Hash{}, errors.New("connected peer < 5")
 		}
 	}
 	if err := args.setDefaults(ctx, s.b); err != nil {
