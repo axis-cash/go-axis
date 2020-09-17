@@ -972,9 +972,9 @@ func tokenFee(coinName string) *big.Int {
 	return level7
 }
 
-var foundationAccount1 = common.Base58ToAddress("hcZCikh7h3By7FBoDhCj8a6swKukeZRKm5Xg1s9RStPTNV7GzE3rJDzJsDwCWy9p86A8amMdCHgF7jKaMfSt1zfaBEbqkapuveHyFko2V9ZKisMC5qMp4VacYnApXokr4ea")
+var foundationAccount1 = common.Base58ToAddress("NGsyb5qeqLJs8TCvAeWSMmPGRn85H2SRWn4Y9Gq8sMDeqN5jRJx86akFTCLunNiWLNYgAcdHn4jGg4KtG8Pbbanp8sRNKHAXCcBhNZJVp5yadBzZ5wHQiePnx1TC6i5bPDk")
 
-var foundationAccount2 = common.Base58ToAddress("5niHmAcSoDzaekKTUpLR3qkQf6djC7AGhnJnuPr8w7ArqQzhxyhEf61Rp68WhpoYo57r5q8CVsLopTJ9uc5VS92fRSHsjBqY9rqMJfQ4DBMw5QyXvT4oyeF7P9sb7ruvwZD")
+var foundationAccount2 = common.Base58ToAddress("8unZXT72FhLfNKKjoTp9ar7TVH4iVtGXjoSf8y21Kxq7pbdjjPf5UT2ZHz6SS47mME7w4raBNdK5jMPRxp5AzyAwPdg4rAo2sicS9o6yZde6FYCo1FiRu88P2ohEuVshpbT")
 
 func handleIssueToken(d []byte, evm *EVM, contract *Contract, mem []byte) (bool, error) {
 	offset := new(big.Int).SetBytes(d[0:32]).Uint64()
