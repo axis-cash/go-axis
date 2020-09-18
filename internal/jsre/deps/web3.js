@@ -2868,7 +2868,7 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
         var base58ToHex = function (value) {
             if (/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/i.test(value)) {
                 bytes = base58ToBytes(value)
-                if(bytes.length == 97){
+                if(bytes.length >= 97){
                     bytes = base58ToBytes(value.substring(1));
                 }
                 return bytesToHex(bytes)
