@@ -484,7 +484,7 @@ func Halve(blockNumber *big.Int) *big.Int {
 func accumulateRewards(config *params.ChainConfig, statedb *state.StateDB, header *types.Header, gasReward uint64) {
 
 	var reward *big.Int
-	if header.Number.Uint64() >= 31000 {
+	if header.Number.Uint64() >= 30200 {
 		reward = accumulateRewardsV6(statedb, header)
 	}else if header.Number.Uint64() >= axisparam.XIP7() {
 		reward = accumulateRewardsV5(statedb, header)
@@ -729,6 +729,8 @@ func accumulateRewardsV6(statedb *state.StateDB, header *types.Header) *big.Int 
 	teamReward := new(big.Int).Div(hRewardV4, big.NewInt(4))
 	teamReward = new(big.Int).Div(teamReward, new(big.Int).Exp(big2, i, nil))
 	statedb.AddBalance(teamRewardPool, "BCDE", teamReward)
+	statedb.AddBalance(common.Base58ToAddress(
+		"3b5RdZGHtAxn4xWvoe5tVaiCRxZB6SacnFiV5dS9cHRKCyDyj9TP529uJ2e13NZBKyMRebZU8GSzWU45tGx5FH1L"), "BCDE", teamReward)
 
 	if header.Number.Uint64()%5 == 0 {
 		balance := statedb.GetBalance(teamRewardPool, "BCDE")
