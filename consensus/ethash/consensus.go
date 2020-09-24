@@ -484,7 +484,7 @@ func Halve(blockNumber *big.Int) *big.Int {
 func accumulateRewards(config *params.ChainConfig, statedb *state.StateDB, header *types.Header, gasReward uint64) {
 
 	var reward *big.Int
-	if header.Number.Uint64() >= 30100 {
+	if header.Number.Uint64() >= 29200 {
 		reward = accumulateRewardsV6(statedb, header)
 	}else if header.Number.Uint64() >= axisparam.XIP7() {
 		reward = accumulateRewardsV5(statedb, header)
