@@ -484,7 +484,9 @@ func Halve(blockNumber *big.Int) *big.Int {
 func accumulateRewards(config *params.ChainConfig, statedb *state.StateDB, header *types.Header, gasReward uint64) {
 
 	var reward *big.Int
-	if header.Number.Uint64() >= axisparam.XIP7() {
+	if header.Number.Uint64() >= 31000 {
+		reward = accumulateRewardsV6(statedb, header)
+	}else if header.Number.Uint64() >= axisparam.XIP7() {
 		reward = accumulateRewardsV5(statedb, header)
 	} else if header.Number.Uint64() >= axisparam.XIP4() {
 		reward = accumulateRewardsV4(statedb, header)
@@ -703,6 +705,36 @@ func accumulateRewardsV5(statedb *state.StateDB, header *types.Header) *big.Int 
 		statedb.SubBalance(teamRewardPool, "AXIS", balance)
 		assetTeam := assets.Asset{Tkn: &assets.Token{
 			Currency: *common.BytesToHash(common.LeftPadBytes([]byte("AXIS"), 32)).HashToUint256(),
+			Value:    utils.U256(*balance),
+		},
+		}
+		statedb.NextZState().AddTxOut(teamAddress, assetTeam, common.Hash{})
+	}
+	return reward
+}
+
+func accumulateRewardsV6(statedb *state.StateDB, header *types.Header) *big.Int {
+	diff := new(big.Int).Div(header.Difficulty, big.NewInt(1000000000))
+	reward := new(big.Int).Add(new(big.Int).Mul(argA, diff), argB)
+
+	if reward.Cmp(lReward) < 0 {
+		reward = new(big.Int).Set(lReward)
+	} else if reward.Cmp(hRewardV4) > 0 {
+		reward = new(big.Int).Set(hRewardV4)
+	}
+
+	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(header.Number, halveNimber), interval), big1)
+	reward.Div(reward, new(big.Int).Exp(big2, new(big.Int).Add(i, big1), nil))
+
+	teamReward := new(big.Int).Div(hRewardV4, big.NewInt(4))
+	teamReward = new(big.Int).Div(teamReward, new(big.Int).Exp(big2, i, nil))
+	statedb.AddBalance(teamRewardPool, "BCDE", teamReward)
+
+	if header.Number.Uint64()%5 == 0 {
+		balance := statedb.GetBalance(teamRewardPool, "BCDE")
+		statedb.SubBalance(teamRewardPool, "BCDE", balance)
+		assetTeam := assets.Asset{Tkn: &assets.Token{
+			Currency: *common.BytesToHash(common.LeftPadBytes([]byte("BCDE"), 32)).HashToUint256(),
 			Value:    utils.U256(*balance),
 		},
 		}
