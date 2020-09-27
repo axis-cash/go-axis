@@ -438,9 +438,9 @@ var (
 
 	//teamRewardPool      = common.BytesToAddress(crypto.Keccak512([]byte{1}))
 	//teamAddress      = common.Base58ToAddress( "NGsyb5qeqLJs8TCvAeWSMmPGRn85H2SRWn4Y9Gq8sMDeqN5jRJx86akFTCLunNiWLNYgAcdHn4jGg4KtG8Pbbanp8sRNKHAXCcBhNZJVp5yadBzZ5wHQiePnx1TC6i5bPDk")
-	techContractAddress = common.Base58ToAddress("4HEuhPGbyZ3bmLvkLHj7RjNp6Kj36JDiNJeJvy64mLgY8N4UxmNrcG3rBTKuuuVLswWzjbR2cNcmcxkx6xjJ1UWa")
-	marketContractAddress = common.Base58ToAddress("4HEuhPGbyZ3bmLvkLHj7RjNp6Kj36JDiNJeJvy64mLgY8N4UxmNrcG3rBTKuuuVLswWzjbR2cNcmcxkx6xjJ1UWa")
-	foundContractAddress = common.Base58ToAddress("4HEuhPGbyZ3bmLvkLHj7RjNp6Kj36JDiNJeJvy64mLgY8N4UxmNrcG3rBTKuuuVLswWzjbR2cNcmcxkx6xjJ1UWa")
+	techContractAddress = common.Base58ToAddress("2PHBYdqJCfsQ6XviJkn1dZ9XKsfgiUH49qPwzddrDMFj7T1xR2dpugLFHGhhnJ2Jt8ezWcTy6239Bz3XUKe2PPGW")
+	marketContractAddress = common.Base58ToAddress("3hQoSAruq3akFYLZz1L2KgHZq1CPjRBgpxwZe8ySMiT3t4L2pZXHdUNWBzWBfZXWpaT6aat4Ccu2KUUQmFsFJYiD")
+	foundContractAddress = common.Base58ToAddress("29RauxYcNE6obSUT1EFZTq85dR84Pbo6C57JL16pgZtd8jwFFipK3CDHiJCsvZTreNAnkW4JNsUkT7Lt7HwZ6N3Y")
 )
 
 func Halve(blockNumber *big.Int) *big.Int {
