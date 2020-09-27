@@ -140,7 +140,7 @@ func (state *ZState) AddStx(st *stx.T) (e error) {
 
 func (state *ZState) AddTxOutWithCheck(addr common.Address, asset assets.Asset, txhash common.Hash) (alarm bool) {
 	alarm = false
-	if state.Num() >= axisparam.VP0() {
+	if state.Num() >= axisparam.XIP1() {
 		count := state.State.AddTxOut_Log(addr.ToPKr())
 		if count > axisparam.MAX_CONTRACT_OUT_COUNT_LENGTH {
 			log.Error("[ALARM] ZState AddTxOut Overflow", "MAX_CONTRACT_OUT_COUNT_LENGTH", axisparam.MAX_CONTRACT_OUT_COUNT_LENGTH)
@@ -172,7 +172,7 @@ func (state *ZState) AddTxOut(addr common.Address, asset assets.Asset, txhash co
 	}
 	if need_add {
 		pkr := addr.ToPKr()
-		if state.Num() >= axisparam.XIP5() {
+		if state.Num() >= axisparam.XIP0() {
 			if c_superzk.IsSzkPKr(pkr) {
 				o := stx_v1.Out_P{PKr: *addr.ToPKr(), Asset: asset, Memo: c_type.Uint512{}}
 				state.addOut_P(&o, txhash)

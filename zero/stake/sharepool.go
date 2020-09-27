@@ -440,7 +440,7 @@ func (self *StakeState) updateStakePool(pool *StakePool) {
 
 func (self *StakeState) NeedTwoVote(num uint64) bool {
 	window_size := getStatisticsMissWindow()
-	if num > axisparam.XIP4()+window_size {
+	if num > axisparam.XIP1()+window_size {
 		missedNum := utils.DecodeNumber32(self.missedNum.GetValue(missedNumKey))
 		seletedNum := window_size * MaxVoteCount
 		ratio := float64(missedNum) / float64(seletedNum)
@@ -870,12 +870,12 @@ func (self *StakeState) processRemedyRewards(bc blockChain, header *types.Header
 }
 
 func (self *StakeState) ProcessBeforeApply(bc blockChain, header *types.Header) (err error) {
-	if header.Number.Uint64() == axisparam.XIP8() {
+	if header.Number.Uint64() == axisparam.XIP1() {
 		InitAVLTree(self)
 		// NewTree(self, header.Number.Uint64()).Midtraverse()
 	}
 
-	// if header.Number.Uint64() > axisparam.XIP8() && header.Number.Uint64()%100 == 0 {
+	// if header.Number.Uint64() > axisparam.XIP1() && header.Number.Uint64()%100 == 0 {
 	// 	NewTree(self, header.Number.Uint64()).Midtraverse()
 	// }
 
@@ -915,7 +915,7 @@ func (self *StakeState) ProcessBeforeApply(bc blockChain, header *types.Header) 
 
 func (self *StakeState) statisticsByWindow(header *types.Header, bc blockChain) error {
 	statisticsMissWindow := getStatisticsMissWindow()
-	if header.Number.Uint64() < 1 || header.Number.Uint64()-1 < axisparam.XIP4() {
+	if header.Number.Uint64() < 1 || header.Number.Uint64()-1 < axisparam.XIP1() {
 		return nil
 	}
 	value := self.missedNum.GetValue(missedNumKey)
@@ -927,7 +927,7 @@ func (self *StakeState) statisticsByWindow(header *types.Header, bc blockChain) 
 		missedNum += uint32(MaxVoteCount - totalVote)
 	}
 
-	if preHeader.Number.Uint64() >= axisparam.XIP4()+statisticsMissWindow {
+	if preHeader.Number.Uint64() >= axisparam.XIP1()+statisticsMissWindow {
 		preNumber := preHeader.Number.Uint64() - statisticsMissWindow
 		windiwHeader := bc.GetHeader(self.getBlockHash(preNumber), preNumber)
 		totalWVote := len(windiwHeader.CurrentVotes) + len(windiwHeader.ParentVotes)
@@ -946,7 +946,7 @@ func (self *StakeState) statisticsByWindow(header *types.Header, bc blockChain) 
 }
 
 func (self *StakeState) processVotedShare(header *types.Header, bc blockChain) (err error) {
-	if header.Number.Uint64() == 1 || header.Number.Uint64()-1 < axisparam.XIP4() {
+	if header.Number.Uint64() == 1 || header.Number.Uint64()-1 < axisparam.XIP1() {
 		return
 	}
 	preHeader := bc.GetHeader(header.ParentHash, header.Number.Uint64()-1)
@@ -1080,12 +1080,12 @@ func (self *StakeState) rewardVote(vote types.HeaderVote, soloReware, reward *bi
 
 func (self *StakeState) processOutDate(header *types.Header, bc blockChain) (err error) {
 	outOfDatePeriod := getOutOfDateWindow()
-	if header.Number.Uint64() < outOfDatePeriod || header.Number.Uint64()-outOfDatePeriod < axisparam.XIP4() {
+	if header.Number.Uint64() < outOfDatePeriod || header.Number.Uint64()-outOfDatePeriod < axisparam.XIP1() {
 		return
 	}
 
 	preNumber := header.Number.Uint64() - outOfDatePeriod
-	if preNumber < axisparam.XIP4() {
+	if preNumber < axisparam.XIP1() {
 		return
 	}
 
@@ -1152,7 +1152,7 @@ func (self *StakeState) processMissVoted(header *types.Header, bc blockChain) (e
 		return
 	}
 	preNumber := header.Number.Uint64() - missVotedPeriod
-	if preNumber < axisparam.XIP4() {
+	if preNumber < axisparam.XIP1() {
 		return
 	}
 	preHeader := bc.GetHeader(self.getBlockHash(preNumber), preNumber)
@@ -1239,7 +1239,7 @@ func (self *StakeState) payIncome(bc blockChain, header *types.Header) (err erro
 		return
 	}
 	preNumber := header.Number.Uint64() - payPeriod
-	if preNumber < axisparam.XIP4() {
+	if preNumber < axisparam.XIP1() {
 		return
 	}
 	preHeader := bc.GetHeader(self.getBlockHash(preNumber), preNumber)

@@ -11,7 +11,7 @@ import (
 )
 
 func VerifyWithoutState(ehash *c_type.Uint256, tx *stx.T, num uint64) (e error) {
-	if num >= axisparam.XIP5() {
+	if num >= axisparam.XIP0() {
 		return verify_1.VerifyWithoutState(ehash, tx, num)
 	} else {
 		return fmt.Errorf("VerifyWithoutState Error: verify_0 no longer be used")
@@ -20,7 +20,7 @@ func VerifyWithoutState(ehash *c_type.Uint256, tx *stx.T, num uint64) (e error) 
 }
 
 func VerifyWithState(tx *stx.T, state *zstate.ZState, num uint64) (e error) {
-	if num >= axisparam.XIP5() {
+	if num >= axisparam.XIP0() {
 		return verify_1.VerifyWithState(tx, state)
 	} else {
 		return fmt.Errorf("VerifyWithState Error: verify_0 no longer be used")

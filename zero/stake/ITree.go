@@ -18,7 +18,7 @@ type ITree interface {
 }
 
 func NewTree(state State, blockNumber uint64) ITree {
-	if blockNumber >= axisparam.XIP8() {
+	if blockNumber >= axisparam.XIP1() {
 		return &AVLTree{state}
 	} else {
 		return &STree{state}

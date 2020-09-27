@@ -194,7 +194,7 @@ func makeGasLog(n uint64) gasFunc {
 			return 0, errGasUintOverflow
 		}
 
-		if (evm.BlockNumber.Uint64() < axisparam.XIP5()) {
+		if (evm.BlockNumber.Uint64() < axisparam.XIP0()) {
 			evm.callGasTemp, err = callGas(gt, contract.Gas, gas, new(big.Int).SetUint64(math.MaxUint64))
 			if err != nil {
 				return 0, err

@@ -18,7 +18,7 @@ var (
 	baseReware, _ = new(big.Int).SetString("10500000000000000000", 10) // 10.5 AXIS
 	rewareStep    = big.NewInt(76854301391338)
 
-	maxReware, _ = new(big.Int).SetString("35600000000000000000", 10) //35.6 AXIS
+	maxReware, _ = new(big.Int).SetString("17100000000000000000", 10) //17.1 AXIS
 
 	outOfDateWindow      = uint64(198720) // 1 month 30*24*60*4.6
 	missVotedWindow      = uint64(596160) // 3 month 3*30*24*60*4.6

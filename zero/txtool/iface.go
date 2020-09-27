@@ -107,7 +107,7 @@ func (self *GTxParam) GenZ() (e error) {
 	self.Z = &Z
 	if Ref_inst.Bc != nil {
 		num := Ref_inst.Bc.GetCurrenHeader().Number.Uint64()
-		if num >= axisparam.XIP7() {
+		if num >= axisparam.XIP1() {
 			isExt := true
 			self.IsExt = &isExt
 		}

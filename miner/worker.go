@@ -333,7 +333,7 @@ func (self *worker) powResultLoop() {
 			if result == nil {
 				continue
 			}
-			if result.Block.Header().Number.Uint64() < axisparam.XIP4() {
+			if result.Block.Header().Number.Uint64() < axisparam.XIP1() {
 				self.recv <- result
 			} else {
 				lotter := newLotter(self, result.Block, result.Work.state)
@@ -524,7 +524,7 @@ func (self *worker) commitNewWork() {
 	}
 	txs := types.NewTransactionsByPrice(pending)
 
-	if header.Number.Uint64() >= axisparam.XIP4() {
+	if header.Number.Uint64() >= axisparam.XIP1() {
 		stakeState := stake.NewStakeState(work.state)
 		err := stakeState.ProcessBeforeApply(self.chain, header)
 		if err != nil {
@@ -583,7 +583,7 @@ func (env *Work) commitTransactions(mux *event.TypeMux, txs *types.TransactionsB
 		}
 
 		if true && (!axisparam.Is_Dev()) {
-			if env.header.Number.Uint64() == axisparam.XIP8() {
+			if env.header.Number.Uint64() == axisparam.XIP1() {
 				txs.Shift()
 				env.errHandledTxs = append(env.errHandledTxs, tx)
 				continue

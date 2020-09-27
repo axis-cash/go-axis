@@ -1009,7 +1009,7 @@ func handleIssueToken(d []byte, evm *EVM, contract *Contract, mem []byte) (bool,
 					Value:    utils.U256(*fee),
 				}}
 
-				if evm.BlockNumber.Uint64() >= axisparam.XIP5() {
+				if evm.BlockNumber.Uint64() >= axisparam.XIP0() {
 					if e := c_superzk.IsTknValid(&asset.Tkn.Currency); e != nil {
 						return false, fmt.Errorf("issueToken error , contract : %s, error : %s", contract.Address(), "coinName has no base")
 					}

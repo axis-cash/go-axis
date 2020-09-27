@@ -4979,10 +4979,14 @@ require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=
 
             if (!callback) {
                 var tys = coder.getSolidityTypes(this._outputTypes);
+                console.log("types:"+ tys);
                 if (tys && tys.length>0){
                     try {
+                        console.log("shortAddress:"+shortAddress);
                         var addrMap = this._axis.getFullAddress(shortAddress);
+                        console.log("addrMap:"+addrMap);
                         var result = coder.decodeParams(this._outputTypes, output,addrMap);
+                        console.log("result:"+result);
                         return result.length === 1 ? result[0] : result;
                     }catch (e) {
                         if(output.length>=8 && output.slice(0,8)== "08c379a0"){

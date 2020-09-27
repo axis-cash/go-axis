@@ -78,7 +78,7 @@ func NewState(tri tri.Tri, num uint64) (state State) {
 	state.rw = new(sync.RWMutex)
 	state.CzeroTree = CzeroMerkleParam.NewMerkleTree(tri)
 	state.SzkTree = SzkMerkleParam.NewMerkleTree(tri)
-	if state.num >= axisparam.XIP2() {
+	if state.num >= axisparam.XIP1() {
 		state.data = data_v1.NewData(num)
 	} else {
 		state.data = data.NewData(num)
@@ -224,7 +224,7 @@ func (self *State) HasIn(hash *c_type.Uint256) (exists bool) {
 func (state *State) addTx0(tx *stx_v0.Tx, txhash *c_type.Uint256) (e error) {
 	t := utils.TR_enter("AddStx---ins")
 	for _, in := range tx.Desc_O.Ins {
-		if state.num >= axisparam.XIP2() {
+		if state.num >= axisparam.XIP1() {
 			if state.data.HasIn(state.tri, &in.Nil) {
 				e = errors.New("desc_o.in.nil already be used !")
 				return
@@ -403,7 +403,7 @@ func AnalyzeNils(header *types.Header, ch Chain) {
 }
 
 func (self *State) PreGenerateRoot(header *types.Header, ch Chain) {
-	if header.Number.Uint64() == (axisparam.XIP2()) {
+	if header.Number.Uint64() == (axisparam.XIP1()) {
 		hash := header.ParentHash
 		number := header.Number.Uint64() - 1
 		size := number
