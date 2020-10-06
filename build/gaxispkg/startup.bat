@@ -12,7 +12,7 @@ set k=%2
 if "%k%" neq "" (
    set KEYSTORE=--keystore  %k%
 )
-start /b bin\gaxis.exe --config gaxisConfig.toml --exchange --mineMode %DATADIR% %KEYSTORE%
+start /b bin\gaxis.exe --config gaxisConfig.toml --stake --recordBlockShareNumber --exchange --mineMode %DATADIR% %KEYSTORE%
 
 pause
 

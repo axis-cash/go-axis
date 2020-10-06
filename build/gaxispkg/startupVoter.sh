@@ -1,4 +1,12 @@
 #!/bin/sh
+if [ -z "`dpkg --list|grep libgmp3-dev`" ]; then
+	echo "Not found libgmp3-dev, install it!"
+        apt install -y libgmp3-dev
+fi
+if [ -z "`dpkg --list|grep gcc`" ]; then
+	echo "Not found gcc, install it!"
+        apt install -y gcc
+fi
 show_usage="args: [-d ,-k, -p, -n,-r,-h]\
                                   [--datadir=,--keystore=, --port=, --net=, --rpc=,--help]"
 export DYLD_LIBRARY_PATH="./czero/lib/"
@@ -28,7 +36,7 @@ do
         esac
 done
 
-cmd="bin/gaxis --mineMode --config ${CONFIG_PATH} --unlock ${VOTER} --password ${VOTER_PASSWORD_PATH} --datadir ${DATADIR_OPTION} --port ${DEFAULT_PORT} ${KEYSTORE_OPTION}"
+cmd="bin/gaxis --mineMode --config ${CONFIG_PATH} --stake --recordBlockShareNumber --unlock ${VOTER} --password ${VOTER_PASSWORD_PATH} --datadir ${DATADIR_OPTION} --port ${DEFAULT_PORT} ${KEYSTORE_OPTION}"
 mkdir -p $LOGDIR
 
 echo $cmd
