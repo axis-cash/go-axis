@@ -49,11 +49,13 @@ func accumulateRewardsV1(number, bdiff *big.Int) [2]*big.Int {
 
 	i := new(big.Int).Add(new(big.Int).Div(new(big.Int).Sub(number, halveNimber), interval), big1)
 	reward.Div(reward, new(big.Int).Exp(big2, i, nil))
-	hRewardOrg :=  new(big.Int).Set(hReward)
+	/*hRewardOrg :=  new(big.Int).Set(hReward)
 	hRewardOrg.Div(hRewardOrg, new(big.Int).Exp(big2, i, nil))
+	*/
 
 	res[0] = reward
-	res[1] = new(big.Int).Sub(hRewardOrg, reward)
+	//res[1] = new(big.Int).Sub(hRewardOrg, reward)
+	res[1] = big.NewInt(0)
 	return res
 
 }
