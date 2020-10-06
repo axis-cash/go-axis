@@ -1106,6 +1106,36 @@ func (s *PublicBlockChainAPI) GetBlockTotalRewardByNumber(ctx context.Context, b
 
 }
 
+//pos reward
+func (s * PublicBlockChainAPI) GetBlockPosRewardByNumber(ctx context.Context, blockNr rpc.BlockNumber) hexutil.Big {
+	reward := big.NewInt(0)
+	block, _ := s.b.BlockByNumber(ctx, blockNr)
+
+	if block != nil && blockNr >= 0 {
+
+		shareNum := stake.BlockShareNum(s.b.ChainDb(), block.Hash())
+		if shareNum == 0 {
+			return hexutil.Big(*reward)
+		}
+		solo, total := stake.GetPosRewardBySize(shareNum, blockNr.Int64())
+		for _, v := range block.Header().CurrentVotes {
+			if v.IsPool {
+				reward.Add(reward, total)
+			} else {
+				reward.Add(reward, solo)
+			}
+		}
+		for _, v := range block.Header().ParentVotes {
+			if v.IsPool {
+				reward.Add(reward, total)
+			} else {
+				reward.Add(reward, solo)
+			}
+		}
+	}
+	return hexutil.Big(*reward)
+}
+
 // GetBlockByHash returns the requested block. When fullTx is true all transactions in the block are returned in full
 // detail, otherwise only the transaction hash is returned.
 func (s *PublicBlockChainAPI) GetBlockByHash(ctx context.Context, blockHash common.Hash, fullTx bool) (map[string]interface{}, error) {
