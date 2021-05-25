@@ -388,6 +388,7 @@ func (self *worker) resultLoop() {
 			atomic.AddInt32(&self.atWork, -1)
 
 			if result == nil {
+				log.Info("result is nil")
 				continue
 			}
 			block := result.Block

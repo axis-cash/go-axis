@@ -35,6 +35,7 @@ func progpowLight(size uint64, cache []uint32, hash []byte, nonce uint64,
 
 func generateCDag(cDag, cache []uint32, epoch uint64) {
 	if cDag == nil {
+		log.Info("cDag is nil")
 		return
 	}
 	start := time.Now()
